@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+</head>
+<body>
+
+
+<h2 th:text="'List of Accounts'">List of Accounts</h2>
+<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.Account"*/--> <!-- comment voor intelliJ-->
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>AccountName</th>
+        <th>AccountNumber</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${accounts}">  <!-- thymeleaf iterator -->
+        <td th:text="${account?.id}">default value Account ID</td>
+        <td th:text="${account?.name}">default value Account Name</td>
+        <td th:text="${account?.number}">default value Account Number</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

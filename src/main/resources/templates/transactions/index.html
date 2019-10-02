@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+</head>
+<body>
+<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.Transaction"*/--> <!-- comment voor intelliJ-->
+
+<h2 th:text="'List of transactions'">List of transactions</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Flow</th>
+        <th>Description</th>
+        <th>CostPost</th>
+        <th>Recurring</th>
+        <th>Tag</th>
+        <th>Validated</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">  <!-- thymeleaf iterator -->
+        <td th:text="${transaction?.id}">default value ID</td>
+        <td th:text="${transaction?.date}">default value Date</td>
+        <td th:text="${transaction?.flow}">default value flow</td>
+        <td th:text="${transaction?.description}">default value description</td>
+        <td th:text="${transaction?.costPost?.name}">default value costpost</td>
+        <td th:text="${transaction?.recurring}">default value recurring</td>
+        <td th:text="${transaction?.tags}">default value tags</td>
+        <td th:text="${transaction?.validated}">default value validated</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

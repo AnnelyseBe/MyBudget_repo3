@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+</head>
+<body>
+<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.Tag"*/--> <!-- comment voor intelliJ-->
+
+
+<h2 th:text="'List of tags'">List of tags</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tagname</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tag : ${tags}">  <!-- thymeleaf iterator -->
+        <td th:text="${tag?.id}">default value ID</td>
+        <td th:text="${tag?.name}">default value Name</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

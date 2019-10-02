@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title>CostPosts</title>
+</head>
+<body>
+<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.CostPost"*/--> <!-- comment voor intelliJ-->
+
+
+<h2 th:text="'List of CostPosts'">List of CostPosts</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>CostPostName</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="costpost : ${costposts}">  <!-- thymeleaf iterator -->
+        <td th:text="${costpost?.id}">default value costpost ID</td>
+        <td th:text="${costpost?.costPostName}">default value costpost Name</td>
+        <td th:text="${costpost?.category}">default value category</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

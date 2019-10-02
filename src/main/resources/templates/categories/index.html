@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.Category"*/--> <!-- comment voor intelliJ-->
+
+<h2 th:text="'List of Categories'">List of Categories</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>CategoryName</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${categories}">  <!-- thymeleaf iterator -->
+        <td th:text="${category?.id}">default value category ID</td>
+        <td th:text="${category?.name}">default value category Name</td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
