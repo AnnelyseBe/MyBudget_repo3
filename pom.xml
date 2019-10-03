@@ -117,8 +117,8 @@
                     <artifactId>junit-platform-surefire-provider</artifactId>
                     <version>${junit-platform.version}</version>
                 </dependency>
-            </dependencies>-->
-        </plugin>
+            </dependencies>
+        </plugin>-->
         </plugins>
     </build>
 
