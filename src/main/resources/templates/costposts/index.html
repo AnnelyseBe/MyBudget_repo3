@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>CostPosts</title>
 </head>
 <body>
-<!--/*@thymesVar id="transaction" type="be.annelyse.budgetfile.model.CostPost"*/--> <!-- comment voor intelliJ-->
-
+<!--/*@thymesVar id="costpost" type="be.annelyse.budget.model.CostPost"*/-->
 
 <h2 th:text="'List of CostPosts'">List of CostPosts</h2>
 
@@ -21,7 +21,7 @@
     <tbody>
     <tr th:each="costpost : ${costposts}">  <!-- thymeleaf iterator -->
         <td th:text="${costpost?.id}">default value costpost ID</td>
-        <td th:text="${costpost?.costPostName}">default value costpost Name</td>
+        <td th:text="${costpost?.name}">default value costpost Name</td>
         <td th:text="${costpost?.category}">default value category</td>
     </tr>
     </tbody>
