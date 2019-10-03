@@ -9,7 +9,7 @@
     </parent>
     <groupId>be.annelyse</groupId>
     <artifactId>budget</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>budget</name>
     <description>
     </description>
@@ -97,7 +97,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:AnnelyseBe/MyBudget_repo3.git</developerConnection>
-      <tag>budget-0.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
