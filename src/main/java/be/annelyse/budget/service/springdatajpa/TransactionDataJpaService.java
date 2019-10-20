@@ -47,4 +47,9 @@ public class TransactionDataJpaService implements TransactionService {
     public void deleteById(Long id) {
         transactionRepository.deleteById(id);
     }
+
+    @Override
+    public Set<Transaction> findTransactionByDescriptionContaining(String description) {
+        return this.transactionRepository.findTransactionByDescriptionIgnoreCaseContaining(description);
+    }
 }

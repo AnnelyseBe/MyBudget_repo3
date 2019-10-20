@@ -2,3 +2,11 @@
 
 # MyBudget_repo3
 BudgetFile - attempt 3 with java 8 and 1 module
+
+# Relating links
+## Visual Datamodel
+[Jhipster](https://start.jhipster.tech/jdl-studio/#!/view/63311fb0-1759-4c63-8335-8e8d95b74c04)
+
+## Product backlog
+[Trello] (https://trello.com/b/CWxfIdrm/budgetfile)
+

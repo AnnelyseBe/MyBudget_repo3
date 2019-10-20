@@ -25,19 +25,5 @@ public class AccountController {
         return "accounts/index";
     }
 
-/*
-    private AccountService accountService;
 
-    @Autowired //niet verplicht maar wel duidelijk
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    @RequestMapping("/accounts")
-    public String getAccounts(Model model){
-        model.addAttribute("accounts", accountService.findAll());
-        return "accounts";
-    }
-
-    */
 }

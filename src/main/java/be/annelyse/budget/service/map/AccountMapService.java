@@ -6,12 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
 @Profile({"default", "map"})
 public class AccountMapService extends AbstractMapService<Account, Long> implements AccountService {
+
     @Override
     public Set<Account> findAll() {
         return super.findAll();
@@ -35,5 +37,17 @@ public class AccountMapService extends AbstractMapService<Account, Long> impleme
     @Override
     public Account findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Account findByName(String name) {
+        //todo implement
+        return null;
+    }
+
+    @Override
+    public List<Account> findAllByNameLike(String name) {
+        //todo implement
+        return null;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
@@ -35,5 +36,13 @@ public class TransactionMapService extends AbstractMapService<Transaction, Long>
     @Override
     public Transaction findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Set<Transaction> findTransactionByDescriptionContaining(String description) {
+        return this.findAll()
+                .stream()
+                .filter(transaction -> transaction.getDescription().toLowerCase().contains(description.toLowerCase()))
+                .collect(Collectors.toSet());
     }
 }

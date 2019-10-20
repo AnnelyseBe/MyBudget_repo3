@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -47,5 +48,15 @@ public class AccountDataJpaService implements AccountService {
     public void deleteById(Long id) {
         accountRepository.deleteById(id);
 
+    }
+
+    @Override
+    public Account findByName(String name) {
+        return accountRepository.findAccountByName(name);
+    }
+
+    @Override
+    public List<Account> findAllByNameLike(String name) {
+        return accountRepository.findAllByNameLike(name);
     }
 }

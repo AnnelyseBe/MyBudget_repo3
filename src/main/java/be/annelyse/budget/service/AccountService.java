@@ -2,12 +2,18 @@ package be.annelyse.budget.service;
 
 import be.annelyse.budget.model.Account;
 
+import java.util.List;
+
 public interface AccountService extends CrudService<Account, Long> {
+
+    Account findByName(String name);
+
+    List<Account> findAllByNameLike(String name);
 
 
 
 /*
-    Account findByName(String name);
+
     Account addAccount(String accountName, String accountNumber, String accountNotes);
     Account updateAccount(Long id, String accountName, String accountNumber, String accountNotes, Boolean accountActive);
     Boolean deleteAccountById(Long id);
