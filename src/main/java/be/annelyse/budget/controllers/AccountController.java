@@ -18,12 +18,18 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-
     @RequestMapping({"/", "", "/index", "/index.html"})
     public String listAccounts(Model model) {
         model.addAttribute("accounts", accountService.findAll());
         return "accounts/index";
     }
+
+    @RequestMapping("/find")
+    public String findAccounts() {
+        return "notimplemented";
+    }
+
+
 
 
 }
