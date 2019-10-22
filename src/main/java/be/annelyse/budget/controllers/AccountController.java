@@ -4,6 +4,7 @@ import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -27,6 +28,12 @@ public class AccountController {
     @RequestMapping("/find")
     public String findAccounts() {
         return "notimplemented";
+    }
+
+    @RequestMapping("/{id}")
+    public String showById(@PathVariable String id, Model model){
+        model.addAttribute("account", accountService.findById(new Long(id)));
+        return "accounts/showID";
     }
 
 

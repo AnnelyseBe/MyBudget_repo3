@@ -18,7 +18,7 @@ public class TransactionController {
 
     @RequestMapping({"/", "", "/index", "/index.html"})
     public String listTransactions(Model model) {
-        //model.addAttribute("transactions", transactionService.findAll());
+        model.addAttribute("transactions", transactionService.findAll());
         return "transactions/index";
     }
 

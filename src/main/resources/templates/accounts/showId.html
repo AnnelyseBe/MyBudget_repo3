@@ -12,28 +12,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
-
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Accounts</title>
 </head>
 <body>
-<!--/*@thymesVar id="category" type="be.annelyse.budget.model.Category"*/-->
-<h2 th:text="'List of Categories'">List of Categories</h2>
+<!--/*@thymesVar id="account" type="be.annelyse.budget.model.Account"*/-->
+
+<h2 th:text="'Account by Id'">List of Accounts</h2>
+
+
 <table class="table table-striped">
     <thead>
     <tr>
         <th>ID</th>
-        <th>CategoryName</th>
+        <th>AccountName</th>
+        <th>AccountNumber</th>
     </tr>
     </thead>
+
     <tbody>
-    <tr th:each="category : ${categories}">  <!-- thymeleaf iterator -->
-        <td th:text="${category?.id}">default value category ID</td>
-        <td th:text="${category?.name}">default value category Name</td>
-    </tr>
+
+        <td th:text="${account?.id}">default value Account ID</td>
+        <td th:text="${account?.name}">default value Account Name</td>
+        <td th:text="${account?.number}">default value Account Number</td>
+
     </tbody>
 </table>
-
 
 </body>
 </html>

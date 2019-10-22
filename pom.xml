@@ -71,6 +71,14 @@
             <optional>true</optional>
         </dependency>
 
+
+        <!-- gevonden op webjars.org-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7-1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -129,6 +137,7 @@
                     <goals>install</goals>
                 </configuration>
             </plugin>
+<!--            beste te declareren, zodat we de versie krijgen die we willen-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
