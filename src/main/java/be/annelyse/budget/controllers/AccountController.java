@@ -4,7 +4,9 @@ import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -34,6 +36,13 @@ public class AccountController {
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("account", accountService.findById(new Long(id)));
         return "accounts/showID";
+    }
+
+    @PostMapping("account")
+    public String saveOrUpdate(@ModelAttribute RecipeCommand command){
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+
+        return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
 

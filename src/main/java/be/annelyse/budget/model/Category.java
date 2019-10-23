@@ -2,20 +2,22 @@ package be.annelyse.budget.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"costPosts"}, callSuper = true)
+@EqualsAndHashCode(exclude = {"costPosts"})
 @Entity
 @Table(name = "category")
-public class Category extends BaseEntity {
+public class Category{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -28,7 +30,7 @@ public class Category extends BaseEntity {
 
     @Builder
     public Category(Long id, String name, String description, Set<CostPost> costPosts) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.description = description;
         this.costPosts = costPosts;

@@ -11,10 +11,15 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Entity
 @Table(name = "transaction")
-public class Transaction extends BaseEntity {
+public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -59,10 +64,11 @@ public class Transaction extends BaseEntity {
 
     @Builder
     public Transaction(Long id, Account account, LocalDate date, BigDecimal inflow, BigDecimal outflow, String description, String notes, String extra, CostPost costPost, Boolean validated, Recurring recurring, Set<Tag> tags) {
-        super(id);
+        this.id = id;
         this.account = account;
         this.date = date;
-        this.inflow = inflow;
+        setInflow(inflow);
+        setOutflow(outflow);
         this.outflow = outflow;
         this.description = description;
         this.notes = notes;

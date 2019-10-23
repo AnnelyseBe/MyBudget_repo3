@@ -3,20 +3,22 @@ package be.annelyse.budget.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"transactions"}, callSuper = true)
+@EqualsAndHashCode(exclude = {"transactions"})
 @Entity
 @Table(name = "tag")
-public class Tag extends BaseEntity {
+public class Tag{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -26,7 +28,8 @@ public class Tag extends BaseEntity {
 
     @Builder
     public Tag(Long id, String name, Set<Transaction> transactions) {
-        super(id);
+
+        this.id = id;
         this.name = name;
         this.transactions = transactions;
     }

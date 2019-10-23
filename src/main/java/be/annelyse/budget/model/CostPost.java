@@ -9,10 +9,15 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"transactions"}, callSuper = true)
+@EqualsAndHashCode(exclude = {"transactions"})
 @Entity
 @Table(name = "costpost")
-public class CostPost extends BaseEntity {
+public class CostPost {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -36,7 +41,7 @@ public class CostPost extends BaseEntity {
 
     @Builder
     public CostPost(Long id, String name, String description, FlowType flow, Category category, Boolean costPostActive, Set<Transaction> transactions) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.description = description;
         this.flow = flow;

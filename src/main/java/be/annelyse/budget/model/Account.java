@@ -11,10 +11,15 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"transactions"}, callSuper = true)
+@EqualsAndHashCode(exclude = {"transactions"})
 @Entity //JPA-hibernate geeft aan dat dit een model is
 @Table(name = "account")
-public class Account extends BaseEntity {
+public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -40,7 +45,7 @@ public class Account extends BaseEntity {
 
     @Builder
     public Account(Long id, String name, String number, String description, Boolean active, Currency currency, Set<Transaction> transactions) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.number = number;
         this.description = description;

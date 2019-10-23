@@ -1,7 +1,5 @@
 package be.annelyse.budget.service.map;
 
-import be.annelyse.budget.model.BaseEntity;
-
 import java.util.*;
 
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
