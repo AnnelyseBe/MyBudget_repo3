@@ -20,8 +20,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
-        //niet nodig als we initmocks methode gebruiken
+@ExtendWith(MockitoExtension.class)    //niet nodig als we initmocks methode gebruiken
 class AccountControllerTest {
 
     @Mock
@@ -31,7 +30,6 @@ class AccountControllerTest {
     AccountController accountController;
 
     Set<Account> accounts;
-
     MockMvc mockMvc;
 
     @BeforeEach

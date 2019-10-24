@@ -1,11 +1,15 @@
 package be.annelyse.budget.service.springdatajpa;
 
+import be.annelyse.budget.commands.AccountCommand;
+import be.annelyse.budget.commands.converters.AccountCommandToAccount;
+import be.annelyse.budget.commands.converters.AccountToAccountCommand;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.repositories.AccountRepository;
 import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,9 +21,13 @@ import java.util.Set;
 public class AccountDataJpaService implements AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountToAccountCommand accountToAccountCommand;
+    private final AccountCommandToAccount accountCommandToAccount;
 
-    public AccountDataJpaService(AccountRepository accountRepository) {
+    public AccountDataJpaService(AccountRepository accountRepository, AccountToAccountCommand accountToAccountCommand, AccountCommandToAccount accountCommandToAccount) {
         this.accountRepository = accountRepository;
+        this.accountToAccountCommand = accountToAccountCommand;
+        this.accountCommandToAccount = accountCommandToAccount;
     }
 
     @Override
@@ -59,4 +67,21 @@ public class AccountDataJpaService implements AccountService {
     public List<Account> findAllByNameLike(String name) {
         return accountRepository.findAllByNameLike(name);
     }
+
+    @Override
+    @Transactional
+    public AccountCommand findCommandById(Long id) {
+        return accountToAccountCommand.convert(findById(id));
+    }
+
+    @Override
+    @Transactional
+    public AccountCommand saveCommand(AccountCommand command) {
+        Account detachedAccount = accountCommandToAccount.convert(command);
+
+        Account savedAccount = accountRepository.save(detachedAccount);
+        log.debug("Saved AccountId:" + savedAccount.getId());
+        return accountToAccountCommand.convert(savedAccount);
+    }
+
 }

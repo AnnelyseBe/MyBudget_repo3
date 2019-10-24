@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AccountCommand{
 
-    //todo evalueren of ik de transactions hier niet uit wil
+    //todo evalueren of de transactions terug moeten worden toegevoegd
 
     private Long id;
     private String name;
@@ -24,5 +24,4 @@ public class AccountCommand{
     private String description;
     private Boolean active = true;
     private Currency currency;
-    private Set<TransactionCommand> transactions = new HashSet<>();
 }

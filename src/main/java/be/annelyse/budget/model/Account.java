@@ -8,6 +8,8 @@ import java.util.Currency;
 import java.util.HashSet;
 import java.util.Set;
 
+//let op ... als we iets veranderen aan het domein, moeten we ook de commands aanpassen
+
 @Getter
 @Setter
 @NoArgsConstructor

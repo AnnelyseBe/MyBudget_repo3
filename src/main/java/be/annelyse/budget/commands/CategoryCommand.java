@@ -14,10 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class CategoryCommand {
 
-    //todo evalueren of ik de costposts hier niet uit wil
+    //todo evalueren of de costposts niet terug moeten worden toegevoegd
 
     private Long id;
     private String name;
     private String description;
-    private Set<CostPostCommand> costPosts = new HashSet<>();
+
 }

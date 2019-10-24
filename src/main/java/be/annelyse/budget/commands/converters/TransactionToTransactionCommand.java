@@ -1,30 +1,21 @@
 package be.annelyse.budget.commands.converters;
 
-import be.annelyse.budget.commands.AccountCommand;
-import be.annelyse.budget.commands.CostPostCommand;
-import be.annelyse.budget.commands.TagCommand;
 import be.annelyse.budget.commands.TransactionCommand;
-import be.annelyse.budget.model.Recurring;
 import be.annelyse.budget.model.Transaction;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
 @Component
-public class TransactionCommandToTransaction implements Converter<TransactionCommand, Transaction> {
+public class TransactionToTransactionCommand implements Converter<Transaction, TransactionCommand> {
 
-    private final TagCommandToTag tagConverter;
-    private final CategoryCommandToCategory categoryConverter;
-    private final CostPostCommandToCostPost costPostConverter;
-    private final AccountCommandToAccount accountConverter;
+    private final TagToTagCommand tagConverter;
+    private final CategoryToCategoryCommand categoryConverter;
+    private final CostPostToCostPostCommand costPostConverter;
+    private final AccountToAccountCommand accountConverter;
 
-    public TransactionCommandToTransaction(TagCommandToTag tagConverter, CategoryCommandToCategory categoryConverter, CostPostCommandToCostPost costPostConverter, AccountCommandToAccount accountConverter) {
+    public TransactionToTransactionCommand(TagToTagCommand tagConverter, CategoryToCategoryCommand categoryConverter, CostPostToCostPostCommand costPostConverter, AccountToAccountCommand accountConverter) {
         this.tagConverter = tagConverter;
         this.categoryConverter = categoryConverter;
         this.costPostConverter = costPostConverter;
@@ -34,12 +25,12 @@ public class TransactionCommandToTransaction implements Converter<TransactionCom
     @Synchronized
     @Nullable
     @Override
-    public Transaction convert(TransactionCommand source) {
+    public TransactionCommand convert(Transaction source) {
         if (source == null){
             return null;
         }
 
-        final Transaction result = new Transaction();
+        final TransactionCommand result = new TransactionCommand();
         result.setId(source.getId());
         result.setCostPost(costPostConverter.convert(source.getCostPost()));
         result.setNotes(source.getNotes());

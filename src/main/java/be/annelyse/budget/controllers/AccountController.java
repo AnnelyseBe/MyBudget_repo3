@@ -1,5 +1,6 @@
 package be.annelyse.budget.controllers;
 
+import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -38,14 +39,22 @@ public class AccountController {
         return "accounts/showID";
     }
 
-    @PostMapping("account")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command){
-        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
-
-        return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    @RequestMapping("/new")
+    public String newAccount(Model model){
+        model.addAttribute("account", new AccountCommand());
+        return "accounts/form";
     }
 
+    @RequestMapping("/{id}/update")
+    public String updateAccount(@PathVariable String id, Model model){
+        model.addAttribute("account", accountService.findCommandById(Long.valueOf(id)));
+        return  "accounts/form";
+    }
 
-
-
+    //todo van deze ben ik nog niet zeker ivm de werking
+    @PostMapping("")
+    public String saveOrUpdate(@ModelAttribute AccountCommand command){
+        AccountCommand savedCommand = accountService.saveCommand(command);
+        return "redirect:/" + savedCommand.getId();
+    }
 }

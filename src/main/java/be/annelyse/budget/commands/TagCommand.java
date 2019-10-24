@@ -15,10 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class TagCommand {
 
-    //todo evalueren of ik de transactions hier niet uit wil
+    //todo evalueren of de transactions niet terug moeten worden toegevoegd
 
 
     private Long id;
     private String name;
-    private Set<TransactionCommand> transactions = new HashSet<>();
+
 }

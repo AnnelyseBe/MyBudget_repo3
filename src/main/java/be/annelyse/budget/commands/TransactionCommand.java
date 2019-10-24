@@ -24,7 +24,6 @@ public class TransactionCommand {
     private LocalDate date;
     private BigDecimal inflow;
     private BigDecimal outflow;
-    private BigDecimal flow;
     private String description;
     private String notes;
     private String extra;

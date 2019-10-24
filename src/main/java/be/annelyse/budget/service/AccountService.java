@@ -1,6 +1,8 @@
 package be.annelyse.budget.service;
 
+import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.model.Account;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -9,6 +11,12 @@ public interface AccountService extends CrudService<Account, Long> {
     Account findByName(String name);
 
     List<Account> findAllByNameLike(String name);
+
+    @Transactional
+    AccountCommand findCommandById(Long l);
+
+    @Transactional
+    AccountCommand saveCommand(AccountCommand command);
 
 
 

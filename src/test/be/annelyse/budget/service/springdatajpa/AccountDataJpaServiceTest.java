@@ -1,7 +1,10 @@
 package be.annelyse.budget.service.springdatajpa;
 
+import be.annelyse.budget.commands.converters.AccountCommandToAccount;
+import be.annelyse.budget.commands.converters.AccountToAccountCommand;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.repositories.AccountRepository;
+import be.annelyse.budget.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +27,10 @@ class AccountDataJpaServiceTest {
 
     @Mock
     AccountRepository accountRepository;
+    @Mock
+    AccountToAccountCommand accountToAccountCommand;
+    @Mock
+    AccountCommandToAccount accountCommandToAccount;
 
     @InjectMocks
     AccountDataJpaService accountService;
@@ -91,7 +98,4 @@ class AccountDataJpaServiceTest {
         verify(accountRepository).findAccountByName(any());
     }
 
-    @Test
-    void findAllByNameLike() {
-    }
 }
