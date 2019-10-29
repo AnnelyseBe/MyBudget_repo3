@@ -43,7 +43,7 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadData() {
 
-        System.out.println("LoadData started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.debug("LoadData started !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Account account1 = new Account();
         account1.setName("ing zichtrekening");
         account1.setNumber("BE1354354354");
@@ -127,6 +127,6 @@ public class DataLoader implements CommandLineRunner {
         transaction3.setValidated(true);
         transactionService.save(transaction3);
 
-        System.out.println("initial data is loaded");
+        log.debug("initial data is loaded");
     }
 }

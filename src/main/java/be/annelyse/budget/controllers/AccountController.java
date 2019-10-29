@@ -24,40 +24,41 @@ public class AccountController {
 
     @RequestMapping({"/", "", "/index", "/index.html"})
     public String listAccounts(Model model) {
-        System.out.println("AccountController listAccounts reached");
+        log.debug("AccountController listAccounts reached");
         model.addAttribute("accounts", accountService.findAll());
         return "accounts/index";
     }
 
     @RequestMapping("/find")
     public String findAccounts() {
-        System.out.println("AccountController findAccounts reached");
+        log.debug("AccountController findAccounts reached");
         return "notimplemented";
     }
 
     @RequestMapping("/{id}")
     public String showById(@PathVariable String id, Model model){
-        System.out.println("AccountController showById reached: id " + id);
+        log.debug("AccountController showById reached: id " + id);
         model.addAttribute("account", accountService.findById(new Long(id)));
         return "accounts/showId";
     }
 
     @RequestMapping("/new")
     public String newAccount(Model model){
+        log.debug("AccountController newAccount() reached");
         model.addAttribute("account", new AccountCommand());
         return "accounts/form";
     }
 
     @RequestMapping("/{id}/update")
     public String updateAccount(@PathVariable String id, Model model){
-        System.out.println("AccountController updateAccount reached: id " + id);
+        log.debug("AccountController updateAccount reached: id " + id);
         model.addAttribute("account", accountService.findCommandById(Long.valueOf(id)));
         return  "accounts/form";
     }
 
     @PostMapping("/saveOrUpdate")
     public String saveOrUpdate(@ModelAttribute AccountCommand command){
-        System.out.println("AccountController saveOrUpdate reached: id " + command.getId() );
+        log.debug("AccountController saveOrUpdate reached: id " + command.getId() );
         AccountCommand savedCommand = accountService.saveCommand(command);
         return "redirect:/accounts/" + savedCommand.getId();
     }

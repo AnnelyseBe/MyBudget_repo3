@@ -10,7 +10,7 @@ public class IndexController {
 
     @RequestMapping({"", "/", "index", "index.html"})
     public String index() {
-        System.out.println("some text by annelyse");
+        log.debug("some text by annelyse");
         return "index";
     }
 
@@ -19,28 +19,4 @@ public class IndexController {
         return "notimplemented";
     }
 
-    /*
-    @RequestMapping("hello") //volgens mij hetzelfde als @RequestMapping(path="/hello")
-    public ModelAndView handleHello() {
-        String text = "joehoe, met het versimpeld voorbeeld van het boek lukt het hier";
-        return new ModelAndView("helloView.html", "message", text);
-    }
-
-    @GetMapping({"home", "/home"})
-    public String homepageMapping() {
-        System.out.println("we geraken wel aan de homepagemapping");
-        return "homepage";
-    }
-
-    @GetMapping({"", "/"})
-    public String rootMapping() {
-        return "index2";
-    }
-
-    @GetMapping({"helloView", "/helloView"})
-    public String helloViewMapping(Model model) {
-        model.addAttribute("message", "rosemary");
-        return "helloView";
-    }
-    */
 }
