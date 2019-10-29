@@ -55,7 +55,6 @@ public class AccountDataJpaService implements AccountService {
     @Override
     public void deleteById(Long id) {
         accountRepository.deleteById(id);
-
     }
 
     @Override

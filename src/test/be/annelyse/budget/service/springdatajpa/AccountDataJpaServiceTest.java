@@ -98,4 +98,15 @@ class AccountDataJpaServiceTest {
         verify(accountRepository).findAccountByName(any());
     }
 
+    @Test
+    void testDeleteById() {
+
+        Long idToDelete = Long.valueOf(2L);
+        accountService.deleteById(idToDelete);
+
+        //no when, since method has void returntype
+
+        //then
+        verify(accountRepository, times(1)).deleteById(anyLong());
+    }
 }

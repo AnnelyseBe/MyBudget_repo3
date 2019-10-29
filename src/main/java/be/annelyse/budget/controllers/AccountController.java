@@ -5,10 +5,7 @@ import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
@@ -22,34 +19,46 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @RequestMapping({"/", "", "/index", "/index.html"})
+    @GetMapping({"/", "", "/index", "/index.html"})
     public String listAccounts(Model model) {
         log.debug("AccountController listAccounts reached");
         model.addAttribute("accounts", accountService.findAll());
         return "accounts/index";
     }
 
-    @RequestMapping("/find")
+    @GetMapping("/find")
     public String findAccounts() {
         log.debug("AccountController findAccounts reached");
         return "notimplemented";
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
+    public String toShowId(@PathVariable String id){
+        return "redirect:/accounts/{id}/show";
+    }
+
+    @GetMapping("/{id}/show")
     public String showById(@PathVariable String id, Model model){
         log.debug("AccountController showById reached: id " + id);
         model.addAttribute("account", accountService.findById(new Long(id)));
-        return "accounts/showId";
+        return "accounts/show";
     }
 
-    @RequestMapping("/new")
+    @GetMapping("/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        log.debug("AccountController deleteById reached: id " + id);
+        accountService.deleteById(Long.valueOf(id));
+        return "redirect:/accounts";
+    }
+
+    @GetMapping("/new")
     public String newAccount(Model model){
         log.debug("AccountController newAccount() reached");
         model.addAttribute("account", new AccountCommand());
         return "accounts/form";
     }
 
-    @RequestMapping("/{id}/update")
+    @GetMapping("/{id}/update")
     public String updateAccount(@PathVariable String id, Model model){
         log.debug("AccountController updateAccount reached: id " + id);
         model.addAttribute("account", accountService.findCommandById(Long.valueOf(id)));

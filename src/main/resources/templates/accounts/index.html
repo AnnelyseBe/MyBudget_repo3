@@ -49,7 +49,7 @@
         <td th:text="${account?.active}">Account Active</td>
         <td th:text="${account?.balance}">Account balance</td>
         <td th:text="${account?.currency}">Account currency</td>
-        <td><a href="#" th:href="@{'/accounts/' + ${account.id}}">View</a></td>
+        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/show'}">View</a></td>
         <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/update'}">Update</a></td>
 
     </tr>
