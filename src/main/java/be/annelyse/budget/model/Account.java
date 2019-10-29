@@ -29,6 +29,7 @@ public class Account {
     @Column(name = "number")
     private String number;
 
+    @Lob  //todo ... is Lob hier de goede annotatie voor?
     @Column(name = "description")
     private String description;
 
@@ -36,7 +37,7 @@ public class Account {
     private Boolean active = true;
 
     @Column(name = "currency")
-    private Currency currency;
+    private Currency currency = Currency.getInstance("EUR");
 
     @OneToMany(mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();

@@ -21,21 +21,37 @@
 
 <h2 th:text="'List of Accounts'">List of Accounts</h2>
 
+<!-- todo ... hier is zeer veel duplicate code in showId -->
+<!-- todo ... graag euroteken ipv "EUR" -->
 
 <table class="table table-striped">
     <thead>
     <tr>
         <th>ID</th>
-        <th>AccountName</th>
-        <th>AccountNumber</th>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Description</th>
+        <th>Active</th>
+        <th>Balance</th>
+        <th>Currency</th>
+        <th>View</th>
+        <th>Update</th>
     </tr>
     </thead>
 
     <tbody>
     <tr th:each="account : ${accounts}">  <!-- thymeleaf iterator -->
-        <td th:text="${account?.id}">default value Account ID</td>
-        <td th:text="${account?.name}">default value Account Name</td>
-        <td th:text="${account?.number}">default value Account Number</td>
+
+        <td th:text="${account?.id}">Account ID</td>
+        <td th:text="${account?.name}">Account Name</td>
+        <td th:text="${account?.number}">Account Number</td>
+        <td th:text="${account?.description}">Account Description</td>
+        <td th:text="${account?.active}">Account Active</td>
+        <td th:text="${account?.balance}">Account balance</td>
+        <td th:text="${account?.currency}">Account currency</td>
+        <td><a href="#" th:href="@{'/accounts/' + ${account.id}}">View</a></td>
+        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/update'}">Update</a></td>
+
     </tr>
     </tbody>
 </table>

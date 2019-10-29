@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
@@ -45,6 +47,8 @@ public class DataLoader implements CommandLineRunner {
         Account account1 = new Account();
         account1.setName("ing zichtrekening");
         account1.setNumber("BE1354354354");
+        account1.setDescription("dit is een lange description nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnnnnnnnnnnnnnnnnnnnn nnnnnnnnn");
+        account1.setCurrency(Currency.getInstance("EUR"));
         accountService.save(account1);
 
         Account account2 = new Account();

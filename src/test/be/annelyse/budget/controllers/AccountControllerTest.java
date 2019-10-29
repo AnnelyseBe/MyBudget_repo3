@@ -1,5 +1,6 @@
 package be.annelyse.budget.controllers;
 
+import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -15,9 +17,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)    //niet nodig als we initmocks methode gebruiken
@@ -60,4 +64,47 @@ class AccountControllerTest {
                 .andExpect(view().name("notimplemented"));
         verifyNoInteractions(accountService);
     }
+
+    @Test
+    void showById() throws Exception {
+        Account account = new Account();
+        account.setId(3L);
+
+        when(accountService.findById(anyLong())).thenReturn(account);
+
+        mockMvc.perform(get("/accounts/3"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/showId"))
+                .andExpect(model().attributeExists("account"));
+    }
+
+    @Test
+    void updateAccount() throws Exception {
+        AccountCommand command = new AccountCommand();
+        command.setId(5L);
+
+        when(accountService.findCommandById(anyLong())).thenReturn(command);
+
+        mockMvc.perform(get("/accounts/3/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/form"))
+                .andExpect(model().attributeExists("account"));
+    }
+
+
+
+
+
+    //todo deze krijg ik niet aan de praat
+    @Test
+    void saveOrUpdate() throws Exception {
+
+        AccountCommand command = new AccountCommand();
+        command.setId(10L);
+
+        when(accountService.saveCommand(command)).thenReturn(command);
+    }
+
+
+
 }

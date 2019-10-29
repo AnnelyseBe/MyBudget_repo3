@@ -80,6 +80,7 @@ public class AccountDataJpaService implements AccountService {
         Account detachedAccount = accountCommandToAccount.convert(command);
 
         Account savedAccount = accountRepository.save(detachedAccount);
+        System.out.println("Saved AccountId:" + savedAccount.getId());
         log.debug("Saved AccountId:" + savedAccount.getId());
         return accountToAccountCommand.convert(savedAccount);
     }
