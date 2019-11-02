@@ -42,8 +42,8 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private Set<Transaction> transactions = new HashSet<>();
 
-    @Transient
-    private BigDecimal balance;
+    //todo use transient of not @Transient or just dont use in the domainobject
+/*    private BigDecimal balance;*/
 
     @Builder
     public Account(Long id, String name, String number, String description, Boolean active, Currency currency, Set<Transaction> transactions) {

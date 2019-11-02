@@ -34,7 +34,7 @@ public class Transaction {
     @Column(name = "outflow")
     private BigDecimal outflow;
 
-    @Transient
+    //todo use transient of not @Transient
     private BigDecimal flow;
 
     @Column(name = "description")
@@ -93,14 +93,11 @@ public class Transaction {
 
     //todo dit is absoluut geen clean code
     private Transaction setFlow() {
-        if (this.inflow == null && this.outflow == null) {
-            this.flow = new BigDecimal(0);
-        } else if (this.inflow != null && this.outflow == null) {
-            this.flow = inflow;
-        } else if (this.inflow == null) {
-            this.flow = new BigDecimal(0).subtract(this.outflow);
-        } else {
-            this.flow = this.inflow.subtract(this.outflow);
+        this.flow = new BigDecimal("0");
+        if (this.inflow != null) {
+            this.flow = this.flow.add(inflow);
+        } if (this.outflow != null) {
+            this.flow = this.flow.subtract(outflow);
         }
         return this;
     }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,10 +85,16 @@ public class TransactionDataJpaService implements TransactionService {
     }
 
     @Override
-    public Set<TransactionCommand> findCommandsByAccountId(Long accountId) {
+    public List<Transaction> findTransactionsByAccountId(Long accountId) {
         Account account = accountService.findById(accountId);
         return findAll().stream()
-                .filter(transaction -> transaction.getAccount() == account )
+                .filter(transaction -> transaction.getAccount() == account)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Set<TransactionCommand> findCommandsByAccountId(Long accountId) {
+        return findTransactionsByAccountId(accountId).stream()
                 .map(transactionToTransactionCommand::convert)
                 .collect(Collectors.toSet());
     }

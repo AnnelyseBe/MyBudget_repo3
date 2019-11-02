@@ -4,6 +4,7 @@ import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.model.Account;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountService extends CrudService<Account, Long> {
@@ -17,6 +18,8 @@ public interface AccountService extends CrudService<Account, Long> {
 
     @Transactional
     AccountCommand saveCommand(AccountCommand command);
+
+    BigDecimal calculateBalanceOfId(Long accountId);
 
 
 
