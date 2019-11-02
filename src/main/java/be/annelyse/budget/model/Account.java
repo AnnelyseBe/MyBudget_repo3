@@ -45,7 +45,6 @@ public class Account {
     @Transient
     private BigDecimal balance;
 
-
     @Builder
     public Account(Long id, String name, String number, String description, Boolean active, Currency currency, Set<Transaction> transactions) {
         this.id = id;

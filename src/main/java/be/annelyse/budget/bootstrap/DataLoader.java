@@ -95,6 +95,7 @@ public class DataLoader implements CommandLineRunner {
         tagService.save(tag2);
 
         Transaction transaction1 = new Transaction();
+        transaction1.setAccount(account1);
         transaction1.setOutflow(new BigDecimal(125D));
         transaction1.setDate(LocalDate.of(2019, 9, 22));
         transaction1.setDescription("sportevenement");
@@ -109,6 +110,7 @@ public class DataLoader implements CommandLineRunner {
         tags.add(tag2);
 
         Transaction transaction2 = new Transaction();
+        transaction2.setAccount(account2);
         transaction2.setOutflow(new BigDecimal(250D));
         transaction2.setDate(LocalDate.of(2019, 9, 28));
         transaction2.setDescription("spar");
@@ -119,6 +121,7 @@ public class DataLoader implements CommandLineRunner {
         transactionService.save(transaction2);
 
         Transaction transaction3 = new Transaction();
+        transaction3.setAccount(account1);
         transaction3.setInflow(new BigDecimal(1000D));
         transaction3.setDate(LocalDate.of(2019, 10, 1));
         transaction3.setDescription("mijn loon");

@@ -50,6 +50,7 @@ public class TransactionCommandToTransaction implements Converter<TransactionCom
         result.setValidated(source.getValidated());
         result.setOutflow(source.getOutflow());
         result.setInflow(source.getInflow());
+        result.setFlow(source.getFlow());
         result.setAccount(accountConverter.convert(source.getAccount()));
 
         if(source.getTags() != null && source.getTags().size() > 0){

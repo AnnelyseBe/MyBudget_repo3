@@ -1,14 +1,10 @@
 package be.annelyse.budget.commands;
 
-import be.annelyse.budget.model.Account;
-import be.annelyse.budget.model.CostPost;
 import be.annelyse.budget.model.Recurring;
-import be.annelyse.budget.model.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,6 +20,7 @@ public class TransactionCommand {
     private LocalDate date;
     private BigDecimal inflow;
     private BigDecimal outflow;
+    private BigDecimal flow;
     private String description;
     private String notes;
     private String extra;
