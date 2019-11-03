@@ -62,11 +62,18 @@
                             </div>
 
                             <div class="row">
+<!-- todo dit is hier bijlange nog niet in orde en geeft ook errors
+we zouden hier ergens moeten implementeren dat er ook nog - geen currency selected of nieuwe currency in te geven staat
+hij savet onze nieuwekeuze ook niet
+-->
                                 <div class="col-md-3 form-group">
                                     <label>Currency:</label>
-                                    <select class="form-control">
-                                        <option>Euro</option>
-                                        <option>Dollar</option>
+                                    <select class="form-control" th:field="*{currency}">
+                                        <option th:each="currency : ${currenciesToChoose}"
+                                                th:value="${currency}"
+                                                th:selected="${account.currency}"
+                                                th:text="${currency}">Currency
+                                        </option>
                                     </select>
                                 </div>
                             </div>

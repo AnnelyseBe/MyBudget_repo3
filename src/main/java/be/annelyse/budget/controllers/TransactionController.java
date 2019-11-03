@@ -40,9 +40,7 @@ public class TransactionController {
         log.debug("Getting transaction list for account id: " + accountId);
         //use command object to avoid lazy load erros in Thymeleaf
         model.addAttribute("transactions", transactionService.findCommandsByAccountId(Long.valueOf(accountId)));
-
         return "transactions/list";
-
     }
 
 

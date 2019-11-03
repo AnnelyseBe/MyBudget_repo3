@@ -3,22 +3,21 @@ package be.annelyse.budget.service.springdatajpa;
 import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.commands.converters.AccountCommandToAccount;
 import be.annelyse.budget.commands.converters.AccountToAccountCommand;
+import be.annelyse.budget.exceptions.ActionNotAllowedException;
+import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.model.Transaction;
 import be.annelyse.budget.repositories.AccountRepository;
 import be.annelyse.budget.repositories.TransactionRepository;
 import be.annelyse.budget.service.AccountService;
-import be.annelyse.budget.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
@@ -55,13 +54,30 @@ public class AccountDataJpaService implements AccountService {
     }
 
     @Override
+    public Account inactivateAccount(Account account){
+        account.setActive(false);
+        return save(account);
+    }
+
+    @Override
     public void delete(Account object) {
         accountRepository.delete(object);
     }
 
     @Override
     public void deleteById(Long id) {
-        accountRepository.deleteById(id);
+        Account accountToDelete = findById(id);
+
+        if (accountToDelete == null){
+            throw new NotFoundException("the account to be deleted does not exist");
+        }
+        else if (accountToDelete.getTransactions().isEmpty()){
+            accountRepository.deleteById(id);
+        }
+        else {
+            inactivateAccount(accountToDelete);
+            throw new ActionNotAllowedException("an account with transaction coupled to it can not be deleted. It has been invalidated instead");
+        }
     }
 
     @Override
@@ -103,6 +119,14 @@ public class AccountDataJpaService implements AccountService {
             }
         }
         return balance;
+    }
+
+    @Override
+    public Set<Currency> getCurrenciesToChoose() {
+        Set<Currency> currenciesToChoose = new HashSet<>();
+        currenciesToChoose.add(Currency.getInstance("EUR"));
+        currenciesToChoose.add(Currency.getInstance("USD"));
+        return currenciesToChoose;
     }
 
 }

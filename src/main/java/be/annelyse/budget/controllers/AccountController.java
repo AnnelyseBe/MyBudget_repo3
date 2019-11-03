@@ -47,7 +47,12 @@ public class AccountController {
     @GetMapping("/{id}/delete")
     public String deleteById(@PathVariable String id){
         log.debug("AccountController deleteById reached: id " + id);
-        accountService.deleteById(Long.valueOf(id));
+        try{
+            accountService.deleteById(Long.valueOf(id));
+        } catch (RuntimeException re) {
+            log.warn(re.getMessage());
+        }
+
         return "redirect:/accounts";
     }
 
@@ -55,6 +60,7 @@ public class AccountController {
     public String newAccount(Model model){
         log.debug("AccountController newAccount() reached");
         model.addAttribute("account", new AccountCommand());
+        model.addAttribute("currenciesInUse", accountService.getCurrenciesToChoose());
         return "accounts/form";
     }
 
@@ -62,6 +68,7 @@ public class AccountController {
     public String updateAccount(@PathVariable String id, Model model){
         log.debug("AccountController updateAccount reached: id " + id);
         model.addAttribute("account", accountService.findCommandById(Long.valueOf(id)));
+        model.addAttribute("currenciesToChoose", accountService.getCurrenciesToChoose());
         return  "accounts/form";
     }
 

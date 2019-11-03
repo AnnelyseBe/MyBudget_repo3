@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
 @Component
@@ -34,7 +36,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         int count = accountService.findAll().size();
         if (count == 0) {
-           // loadData();
+            loadData();
         }
     }
 
@@ -51,6 +53,7 @@ public class DataLoader implements CommandLineRunner {
         Account account2 = new Account();
         account2.setName("ing spaarrekening");
         account2.setNumber("BE9999999");
+        account2.setCurrency(Currency.getInstance("USD"));
         accountService.save(account2);
 
         Category category1 = new Category();

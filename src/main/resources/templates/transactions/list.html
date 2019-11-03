@@ -27,7 +27,8 @@
         <th>ID</th>
         <th>Account</th>
         <th>Data</th>
-        <th>Flow</th>
+        <th>In</th>
+        <th>Out</th>
         <th>Description</th>
         <th>CostPost</th>
         <th>Recurring</th>
@@ -40,7 +41,8 @@
         <td th:text="${transaction?.id}">default value ID</td>
         <td th:text="${transaction?.account?.name}">default value ID</td>
         <td th:text="${transaction?.date}">default value Date</td>
-        <td th:text="${transaction?.flow?.doubleValue()}">default value flow</td>
+        <td th:text="${transaction?.inflow}">default value flow</td>
+        <td th:text="${transaction?.outflow}">default value flow</td>
         <td th:text="${transaction?.description}">default value description</td>
         <td th:text="${transaction?.costPost?.name}">default value costpost</td>
         <td th:text="${transaction?.recurring}">default value recurring</td>

@@ -5,13 +5,17 @@ import be.annelyse.budget.model.Account;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.List;
+import java.util.Set;
 
 public interface AccountService extends CrudService<Account, Long> {
 
     Account findByName(String name);
 
     List<Account> findAllByNameLike(String name);
+
+    Account inactivateAccount(Account account);
 
     @Transactional
     AccountCommand findCommandById(Long l);
@@ -20,6 +24,8 @@ public interface AccountService extends CrudService<Account, Long> {
     AccountCommand saveCommand(AccountCommand command);
 
     BigDecimal calculateBalanceOfId(Long accountId);
+
+    Set<Currency> getCurrenciesToChoose();
 
 
 
