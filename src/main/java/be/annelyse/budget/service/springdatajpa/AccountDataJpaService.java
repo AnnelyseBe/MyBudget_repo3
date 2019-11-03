@@ -6,6 +6,7 @@ import be.annelyse.budget.commands.converters.AccountToAccountCommand;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.model.Transaction;
 import be.annelyse.budget.repositories.AccountRepository;
+import be.annelyse.budget.repositories.TransactionRepository;
 import be.annelyse.budget.service.AccountService;
 import be.annelyse.budget.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +28,13 @@ public class AccountDataJpaService implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountToAccountCommand accountToAccountCommand;
     private final AccountCommandToAccount accountCommandToAccount;
-    private final TransactionService transactionService;
+    private final TransactionRepository transactionRepository;
 
-    public AccountDataJpaService(AccountRepository accountRepository, AccountToAccountCommand accountToAccountCommand, AccountCommandToAccount accountCommandToAccount, TransactionService transactionService) {
+    public AccountDataJpaService(AccountRepository accountRepository, AccountToAccountCommand accountToAccountCommand, AccountCommandToAccount accountCommandToAccount, TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.accountToAccountCommand = accountToAccountCommand;
         this.accountCommandToAccount = accountCommandToAccount;
-        this.transactionService = transactionService;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -91,13 +92,14 @@ public class AccountDataJpaService implements AccountService {
 
     @Override
     public BigDecimal calculateBalanceOfId(Long accountId) {
-        List<Transaction> accountTransactions = transactionService.findTransactionsByAccountId(accountId);
+        Account myAccount = findById(accountId);
+        List<Transaction> transactionsByAccountId = myAccount.getTransactions();
+
         BigDecimal balance = new BigDecimal("0");
 
-        for (int i = 0; i < accountTransactions.size(); i++) {
-            if (accountTransactions.get(i).getValidated()) {
-                System.out.println("run i = " + i);
-                balance = balance.subtract(accountTransactions.get(i).getOutflow()).add(accountTransactions.get(i).getInflow());
+        for (int i = 0; i < transactionsByAccountId.size(); i++) {
+            if (transactionsByAccountId.get(i).getValidated()) {
+                balance = balance.subtract(transactionsByAccountId.get(i).getOutflow()).add(transactionsByAccountId.get(i).getInflow());
             }
         }
         return balance;

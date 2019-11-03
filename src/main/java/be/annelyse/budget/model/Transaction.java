@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -57,10 +59,10 @@ public class Transaction {
     @JoinTable(name = "transaction_tags",
             joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags = new HashSet<>();
+    private List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public Transaction(Long id, Account account, LocalDate date, BigDecimal inflow, BigDecimal outflow, String description, String notes, String extra, CostPost costPost, Boolean validated, Recurring recurring, Set<Tag> tags) {
+    public Transaction(Long id, Account account, LocalDate date, BigDecimal inflow, BigDecimal outflow, String description, String notes, String extra, CostPost costPost, Boolean validated, Recurring recurring, List<Tag> tags) {
         this.id = id;
         this.account = account;
         this.date = date;
@@ -77,7 +79,6 @@ public class Transaction {
 
     public Transaction setInflow(BigDecimal inflow) {
         this.inflow = inflow;
-       // this.setFlow();
         return this;
     }
 

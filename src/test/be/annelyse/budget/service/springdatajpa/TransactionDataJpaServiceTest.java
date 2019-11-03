@@ -34,9 +34,6 @@ class TransactionDataJpaServiceTest {
     TransactionRepository transactionRepository;
 
     @Mock
-    AccountService accountService;
-
-    @Mock
     TransactionToTransactionCommand transactionToTransactionCommand;
 
     @Mock
@@ -47,7 +44,7 @@ class TransactionDataJpaServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new TransactionDataJpaService(transactionRepository, accountService, transactionCommandToTransaction, transactionToTransactionCommand);
+        service = new TransactionDataJpaService(transactionRepository, transactionCommandToTransaction, transactionToTransactionCommand);
     }
 
     @Test
@@ -82,7 +79,6 @@ class TransactionDataJpaServiceTest {
         transactionSet.add(transaction2);
         transactionSet.add(transaction3);
 
-        when(accountService.findById(anyLong())).thenReturn(account1);
         when(transactionRepository.findAll()).thenReturn(transactionSet);
         when(transactionToTransactionCommand.convert(transaction1)).thenReturn(transactionCommand1);
         when(transactionToTransactionCommand.convert(transaction2)).thenReturn(transactionCommand2);

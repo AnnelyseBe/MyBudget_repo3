@@ -4,9 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 //let op ... als we iets veranderen aan het domein, moeten we ook de commands aanpassen
 
@@ -40,13 +38,13 @@ public class Account {
     private Currency currency = Currency.getInstance("EUR");
 
     @OneToMany(mappedBy = "account")
-    private Set<Transaction> transactions = new HashSet<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     //todo use transient of not @Transient or just dont use in the domainobject
 /*    private BigDecimal balance;*/
 
     @Builder
-    public Account(Long id, String name, String number, String description, Boolean active, Currency currency, Set<Transaction> transactions) {
+    public Account(Long id, String name, String number, String description, Boolean active, Currency currency, List<Transaction> transactions) {
         this.id = id;
         this.name = name;
         this.number = number;

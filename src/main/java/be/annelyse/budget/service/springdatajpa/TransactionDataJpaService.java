@@ -1,11 +1,11 @@
 package be.annelyse.budget.service.springdatajpa;
 
-import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.commands.TransactionCommand;
 import be.annelyse.budget.commands.converters.TransactionCommandToTransaction;
 import be.annelyse.budget.commands.converters.TransactionToTransactionCommand;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.model.Transaction;
+import be.annelyse.budget.repositories.AccountRepository;
 import be.annelyse.budget.repositories.TransactionRepository;
 import be.annelyse.budget.service.AccountService;
 import be.annelyse.budget.service.TransactionService;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,13 +24,11 @@ import java.util.stream.Collectors;
 public class TransactionDataJpaService implements TransactionService {
 
     private final TransactionRepository transactionRepository;
-    private final AccountService accountService;
     private final TransactionCommandToTransaction transactionCommandToTransaction;
     private final TransactionToTransactionCommand transactionToTransactionCommand;
 
-    public TransactionDataJpaService(TransactionRepository transactionRepository, AccountService accountService, TransactionCommandToTransaction transactionCommandToTransaction, TransactionToTransactionCommand transactionToTransactionCommand) {
+    public TransactionDataJpaService(TransactionRepository transactionRepository, TransactionCommandToTransaction transactionCommandToTransaction, TransactionToTransactionCommand transactionToTransactionCommand) {
         this.transactionRepository = transactionRepository;
-        this.accountService = accountService;
         this.transactionCommandToTransaction = transactionCommandToTransaction;
         this.transactionToTransactionCommand = transactionToTransactionCommand;
     }
@@ -87,9 +83,9 @@ public class TransactionDataJpaService implements TransactionService {
 
     @Override
     public List<Transaction> findTransactionsByAccountId(Long accountId) {
-        Account account = accountService.findById(accountId);
+        //Account account = accountRepository.findById(accountId).orElse(null);
         return findAll().stream()
-                .filter(transaction -> transaction.getAccount() == account)
+                .filter(transaction -> transaction.getAccount().getId() == accountId)
                 .collect(Collectors.toList());
     }
 

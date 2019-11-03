@@ -122,11 +122,16 @@ class AccountDataJpaServiceTest {
         Transaction transaction2 = Transaction.builder().account(account1).id(12L).validated(true).inflow(BigDecimal.valueOf(100D)).outflow((BigDecimal.valueOf(1000D))).build();
         Transaction transaction3 = Transaction.builder().account(account2).id(13L).validated(true).inflow(BigDecimal.valueOf(5D)).outflow((BigDecimal.valueOf(50D))).build();
 
-        List<Transaction> transactionList = new ArrayList<>();
-        transactionList.add(transaction1);
-        transactionList.add(transaction2);
+        List<Transaction> transactionListAccount1 = new ArrayList<>();
+        transactionListAccount1.add(transaction1);
+        transactionListAccount1.add(transaction2);
+        List<Transaction> transactionListAccount2 = new ArrayList<>();
+        transactionListAccount2.add(transaction3);
 
-        when(transactionService.findTransactionsByAccountId(anyLong())).thenReturn(transactionList);
+        account1.setTransactions(transactionListAccount1);
+        account2.setTransactions(transactionListAccount2);
+
+        when(accountRepository.findById(anyLong())).thenReturn(Optional.of(account1));
 
         BigDecimal balanceTest = BigDecimal.valueOf(0D);
         assertThat(transaction1.getInflow(), equalTo(BigDecimal.valueOf(100D)));
@@ -134,8 +139,6 @@ class AccountDataJpaServiceTest {
 
         BigDecimal balance = accountService.calculateBalanceOfId(1L);
 
-
         assertThat(balance, equalTo(BigDecimal.valueOf(-1800D)));
-
     }
 }
