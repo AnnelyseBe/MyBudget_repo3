@@ -32,8 +32,6 @@ class AccountDataJpaServiceTest {
     AccountToAccountCommand accountToAccountCommand;
     @Mock
     AccountCommandToAccount accountCommandToAccount;
-    @Mock
-    TransactionService transactionService;
 
     @InjectMocks
     AccountDataJpaService accountService;
@@ -82,15 +80,17 @@ class AccountDataJpaServiceTest {
 
     @Test
     void delete() {
-        accountService.delete(returnAccount);
 
+        accountService.delete(returnAccount);
         verify(accountRepository, times(1)).delete(any());
     }
 
     @Test
     void deleteById() {
+        when(accountRepository.findById(anyLong())).thenReturn(Optional.of(returnAccount));
+
         accountService.deleteById(ACCOUNT_ID);
-        verify(accountRepository, times(1)).deleteById(any());
+        verify(accountRepository, times(1)).delete(any());
     }
 
     @Test
@@ -101,17 +101,6 @@ class AccountDataJpaServiceTest {
         verify(accountRepository).findAccountByName(any());
     }
 
-    @Test
-    void testDeleteById() {
-
-        Long idToDelete = Long.valueOf(2L);
-        accountService.deleteById(idToDelete);
-
-        //no when, since method has void returntype
-
-        //then
-        verify(accountRepository, times(1)).deleteById(anyLong());
-    }
 
     @Test
     void calculateBalanceOfId() {

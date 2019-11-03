@@ -27,13 +27,11 @@ public class AccountDataJpaService implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountToAccountCommand accountToAccountCommand;
     private final AccountCommandToAccount accountCommandToAccount;
-    private final TransactionRepository transactionRepository;
 
-    public AccountDataJpaService(AccountRepository accountRepository, AccountToAccountCommand accountToAccountCommand, AccountCommandToAccount accountCommandToAccount, TransactionRepository transactionRepository) {
+    public AccountDataJpaService(AccountRepository accountRepository, AccountToAccountCommand accountToAccountCommand, AccountCommandToAccount accountCommandToAccount) {
         this.accountRepository = accountRepository;
         this.accountToAccountCommand = accountToAccountCommand;
         this.accountCommandToAccount = accountCommandToAccount;
-        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -60,24 +58,23 @@ public class AccountDataJpaService implements AccountService {
     }
 
     @Override
-    public void delete(Account object) {
-        accountRepository.delete(object);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        Account accountToDelete = findById(id);
-
+    public void delete(Account accountToDelete) {
         if (accountToDelete == null){
             throw new NotFoundException("the account to be deleted does not exist");
         }
-        else if (accountToDelete.getTransactions().isEmpty()){
-            accountRepository.deleteById(id);
+        else if (accountToDelete.getTransactions() == null || accountToDelete.getTransactions().isEmpty()){
+            accountRepository.delete(accountToDelete);
         }
         else {
             inactivateAccount(accountToDelete);
             throw new ActionNotAllowedException("an account with transaction coupled to it can not be deleted. It has been invalidated instead");
         }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Account accountToDelete = findById(id);
+        delete(accountToDelete);
     }
 
     @Override
