@@ -13,7 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -32,12 +34,12 @@ class AccountControllerTest {
     @InjectMocks
     AccountController accountController;
 
-    Set<Account> accounts;
+    List<Account> accounts;
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        accounts = new HashSet<>();
+        accounts = new ArrayList<>();
         accounts.add(Account.builder().id(1L).build());
         accounts.add(Account.builder().id(2L).build());
 
@@ -90,11 +92,6 @@ class AccountControllerTest {
                 .andExpect(model().attributeExists("account"));
     }
 
-
-
-
-
-    //todo deze krijg ik niet aan de praat
     @Test
     void saveOrUpdate() throws Exception {
 

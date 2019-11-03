@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,8 @@ public class TransactionDataJpaService implements TransactionService {
     }
 
     @Override
-    public Set<Transaction> findAll() {
-        Set<Transaction> transactions = new HashSet<>();
+    public List<Transaction> findAll() {
+        List<Transaction> transactions = new ArrayList<>();
         transactionRepository.findAll().forEach(transactions::add);
         return transactions;
     }
@@ -64,7 +65,7 @@ public class TransactionDataJpaService implements TransactionService {
     }
 
     @Override
-    public Set<Transaction> findTransactionsByDescriptionContaining(String description) {
+    public List<Transaction> findTransactionsByDescriptionContaining(String description) {
         return this.transactionRepository.findTransactionByDescriptionIgnoreCaseContaining(description);
     }
 
@@ -93,9 +94,9 @@ public class TransactionDataJpaService implements TransactionService {
     }
 
     @Override
-    public Set<TransactionCommand> findCommandsByAccountId(Long accountId) {
+    public List<TransactionCommand> findCommandsByAccountId(Long accountId) {
         return findTransactionsByAccountId(accountId).stream()
                 .map(transactionToTransactionCommand::convert)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

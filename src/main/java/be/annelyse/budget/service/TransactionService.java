@@ -11,7 +11,7 @@ import java.util.Set;
 public interface TransactionService extends CrudService<Transaction, Long> {
 
 
-    Set<Transaction> findTransactionsByDescriptionContaining(String description);
+    List<Transaction> findTransactionsByDescriptionContaining(String description);
 
     TransactionCommand findCommandById(Long id);
 
@@ -19,6 +19,6 @@ public interface TransactionService extends CrudService<Transaction, Long> {
 
     List<Transaction> findTransactionsByAccountId(Long accountId);
 
-    Set<TransactionCommand> findCommandsByAccountId(Long accountId);
+    List<TransactionCommand> findCommandsByAccountId(Long accountId);
 
 }

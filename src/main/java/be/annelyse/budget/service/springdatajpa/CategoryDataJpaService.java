@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,8 +24,8 @@ public class CategoryDataJpaService implements CategoryService {
     }
 
     @Override
-    public Set<Category> findAll() {
-        Set<Category> categories = new HashSet<>();
+    public List<Category> findAll() {
+        List<Category> categories = new ArrayList<>();
         categoryRepository.findAll().forEach(categories::add);
         return categories;
     }

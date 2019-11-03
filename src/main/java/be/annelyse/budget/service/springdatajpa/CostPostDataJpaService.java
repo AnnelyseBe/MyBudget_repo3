@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,8 +24,8 @@ public class CostPostDataJpaService implements CostPostService {
     }
 
     @Override
-    public Set<CostPost> findAll() {
-        Set<CostPost> costPosts = new HashSet<>();
+    public List<CostPost> findAll() {
+        List<CostPost> costPosts = new ArrayList<>();
         costPostRepository.findAll().forEach(costPosts::add);
         return costPosts;
     }

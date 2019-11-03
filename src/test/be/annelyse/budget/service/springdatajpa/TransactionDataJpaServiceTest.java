@@ -15,7 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,12 +54,12 @@ class TransactionDataJpaServiceTest {
     void findTransactionByDescriptionContaining() {
 
         Transaction returnTransaction = Transaction.builder().description("AnneLieS haar Knutselgerief").id(1L).build();
-        Set<Transaction> returnSet = new HashSet<>();
+        List<Transaction> returnSet = new ArrayList<>();
         returnSet.add(returnTransaction);
 
         when(transactionRepository.findTransactionByDescriptionIgnoreCaseContaining(anyString())).thenReturn(returnSet);
 
-        Set<Transaction> result = service.findTransactionsByDescriptionContaining("annelies");
+        List<Transaction> result = service.findTransactionsByDescriptionContaining("annelies");
 
         assertThat(result, hasSize(1));
         assertThat(result, contains(returnTransaction));
@@ -75,7 +77,7 @@ class TransactionDataJpaServiceTest {
         TransactionCommand transactionCommand1 = new TransactionCommand();
         TransactionCommand transactionCommand2 = new TransactionCommand();
 
-        Set<Transaction> transactionSet = new HashSet<>();
+        List<Transaction> transactionSet = new ArrayList<>();
         transactionSet.add(transaction1);
         transactionSet.add(transaction2);
         transactionSet.add(transaction3);
@@ -85,7 +87,7 @@ class TransactionDataJpaServiceTest {
         when(transactionToTransactionCommand.convert(transaction1)).thenReturn(transactionCommand1);
         when(transactionToTransactionCommand.convert(transaction2)).thenReturn(transactionCommand2);
 
-        Set<TransactionCommand> result = service.findCommandsByAccountId(11L);
+        List<TransactionCommand> result = service.findCommandsByAccountId(11L);
 
         assertThat(result, hasSize(2));
         //let op ... containsInAnyOrder moet alle items van de collection bevatten -> containsInAnyOrder(transaction1) geeft false

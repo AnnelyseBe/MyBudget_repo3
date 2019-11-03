@@ -34,9 +34,6 @@ public class Transaction {
     @Column(name = "outflow")
     private BigDecimal outflow;
 
-    //todo use transient of not @Transient
-    private BigDecimal flow;
-
     @Column(name = "description")
     private String description;
 
@@ -67,8 +64,7 @@ public class Transaction {
         this.id = id;
         this.account = account;
         this.date = date;
-        setInflow(inflow);
-        setOutflow(outflow);
+        this.inflow = inflow;
         this.outflow = outflow;
         this.description = description;
         this.notes = notes;
@@ -81,24 +77,12 @@ public class Transaction {
 
     public Transaction setInflow(BigDecimal inflow) {
         this.inflow = inflow;
-        this.setFlow();
+       // this.setFlow();
         return this;
     }
 
     public Transaction setOutflow(BigDecimal outflow) {
         this.outflow = outflow;
-        this.setFlow();
-        return this;
-    }
-
-    //todo dit is absoluut geen clean code
-    private Transaction setFlow() {
-        this.flow = new BigDecimal("0");
-        if (this.inflow != null) {
-            this.flow = this.flow.add(inflow);
-        } if (this.outflow != null) {
-            this.flow = this.flow.subtract(outflow);
-        }
         return this;
     }
 

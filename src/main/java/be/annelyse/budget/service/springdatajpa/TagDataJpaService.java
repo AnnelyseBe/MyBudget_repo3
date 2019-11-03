@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,8 +24,8 @@ public class TagDataJpaService implements TagService {
     }
 
     @Override
-    public Set<Tag> findAll() {
-        Set<Tag> tags = new HashSet<>();
+    public List<Tag> findAll() {
+        List<Tag> tags = new ArrayList<>();
         tagRepository.findAll().forEach(tags::add);
         return tags;
     }
