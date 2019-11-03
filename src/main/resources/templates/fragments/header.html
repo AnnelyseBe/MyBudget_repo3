@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -14,21 +15,25 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
     <meta charset="UTF-8">
-    <title>BudgetFile</title>
+    <title>Header</title>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header">
-
-</div>
-
-    <div>
-        <h1 th:text="'Index page'">Wees welkom op mijn eerste pagina</h1>
-        <p>Message</p>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">My budgetFile</a>
+        </div>
     </div>
-
-
-
+</div>
 
 </body>
 </html>
+
+
+
