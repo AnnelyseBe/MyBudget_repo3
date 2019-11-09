@@ -38,7 +38,7 @@ public class AccountController {
     @GetMapping("/find")
     public String findAccounts(Model model) {
         log.debug("AccountController findAccounts reached");
-        model.addAttribute("account", Account.builder());
+        model.addAttribute("account", Account.builder().build());
         return VIEWS_ACCOUNT_FIND;
     }
 
@@ -50,7 +50,7 @@ public class AccountController {
         }
 
         //find accounts by name like
-        List<Account> results = accountService.findAllByNameLike(account.getName());
+        List<Account> results = accountService.findAllByNameLike("%"+account.getName()+"%");
 
         if(results.isEmpty()){
             //no accounts found

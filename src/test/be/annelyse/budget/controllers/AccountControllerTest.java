@@ -6,19 +6,21 @@ import be.annelyse.budget.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,6 +44,7 @@ class AccountControllerTest {
         accounts = new ArrayList<>();
         accounts.add(Account.builder().id(1L).build());
         accounts.add(Account.builder().id(2L).build());
+        accounts.add(Account.builder().id(3L).build());
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(accountController)
@@ -49,21 +52,51 @@ class AccountControllerTest {
     }
 
     @Test
-    void listAccounts() throws Exception {
-        when(accountService.findAll()).thenReturn(accounts);
-        mockMvc.perform(get("/accounts"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("accounts/index"))
-                .andExpect(model().attribute("accounts", hasSize(2)));
-    }
-
-    @Test
     void findAccounts() throws Exception {
 
         mockMvc.perform(get("/accounts/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("notimplemented"));
+                .andExpect(view().name("accounts/findAccounts"));
         verifyNoInteractions(accountService);
+    }
+
+    @Test
+    void processFindFormReturnMany() throws Exception {
+        when(accountService.findAllByNameLike(anyString()))
+                .thenReturn(Arrays.asList(
+                        Account.builder().id(1l).build(),
+                        Account.builder().id(2l).build()
+                ));
+
+        mockMvc.perform(get("/accounts"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/accountsList"))
+                .andExpect(model().attribute("accounts", hasSize(2)));
+    }
+
+    @Test
+    void processFindFormReturnOne() throws Exception {
+        when(accountService.findAllByNameLike(anyString())).thenReturn(Arrays.asList(Account.builder().id(1l).build()));
+
+        mockMvc.perform(get("/accounts"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/accounts/1"));
+    }
+
+    @Test
+    void processFindFormEmptyReturnMany() throws Exception {
+        when(accountService.findAllByNameLike(anyString()))
+                .thenReturn(Arrays.asList(
+                        Account.builder().id(1l).build(),
+                        Account.builder().id(2l).build()
+                ));
+
+        mockMvc.perform(get("/accounts")
+                .param("name", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/accountsList"))
+                .andExpect(model().attribute("accounts", hasSize(2)));
+        ;
     }
 
     @Test
@@ -73,42 +106,51 @@ class AccountControllerTest {
 
         when(accountService.findById(anyLong())).thenReturn(account);
 
-        mockMvc.perform(get("/accounts/3/show"))
+        mockMvc.perform(get("/accounts/3"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("accounts/show"))
+                .andExpect(view().name("accounts/accountDetails"))
+                .andExpect(model().attribute("account", hasProperty("id", is(3L))));
+    }
+
+    @Test
+    void initCreationForm() throws Exception{
+        mockMvc.perform(get("/accounts/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/createOrUpdateAccountForm"))
                 .andExpect(model().attributeExists("account"));
     }
 
     @Test
-    void updateAccount() throws Exception {
-        AccountCommand command = new AccountCommand();
-        command.setId(5L);
+    void processCreationForm() throws Exception {
+        when(accountService.save(ArgumentMatchers.any())).thenReturn(Account.builder().id(1L).build());
 
-        when(accountService.findCommandById(anyLong())).thenReturn(command);
-
-        mockMvc.perform(get("/accounts/3/update"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("accounts/form"))
-                .andExpect(model().attributeExists("account"));
-    }
-
-    @Test
-    void saveOrUpdate() throws Exception {
-
-        AccountCommand command = new AccountCommand();
-        command.setId(10L);
-
-        when(accountService.saveCommand(any())).thenReturn(command);
-
-        mockMvc.perform(post("/accounts/saveOrUpdate")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", "")
-                .param("description", "some string")
-        )
+        mockMvc.perform(post("/accounts/new"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/accounts/10"));
+                .andExpect(view().name("redirect:/accounts/1"))
+                .andExpect(model().attributeExists("account"));
     }
 
+    @Test
+    void initUpdateAccountForm() throws Exception{
+       when(accountService.findById(ArgumentMatchers.any())).thenReturn(Account.builder().id(1L).build());
+       when(accountService.getCurrenciesToChoose()).thenReturn(new HashSet<>());
+
+        mockMvc.perform(get("/accounts/1/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accounts/createOrUpdateAccountForm"))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("currenciesToChoose"));
+    }
+
+    @Test
+    void processUpdatedAccountForm() throws Exception {
+        when(accountService.save(ArgumentMatchers.any())).thenReturn(Account.builder().id(3L).build());
+
+        mockMvc.perform(post("/accounts/3/edit"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/accounts/3"))
+                .andExpect(model().attributeExists("account"));
+    }
 
     @Test
     void deleteById() throws Exception {
@@ -118,4 +160,5 @@ class AccountControllerTest {
 
         verify(accountService,times(1)).deleteById(anyLong());
     }
+
 }
