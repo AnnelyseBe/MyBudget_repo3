@@ -30,6 +30,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    //zorgt ervoor dat alles buiten het ID door de Bindingresult wordt gekoppeld. De id moeten we dan zelf binden
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
@@ -71,6 +72,7 @@ public class AccountController {
     public String showById(@PathVariable Long id, Model model){
         log.debug("AccountController showById reached: id " + id);
         model.addAttribute("account", accountService.findById(id));
+        model.addAttribute("currenciesToChoose", accountService.getCurrenciesToChoose());
         return VIEWS_ACCOUNT_DETAILS;
     }
 
@@ -85,6 +87,8 @@ public class AccountController {
     @PostMapping("/new")
     public String processCreationForm(@Valid Account account, BindingResult result){
         log.debug("AccountController newAccount() reached");
+
+
         if (result.hasErrors()){
             return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
         } else {
@@ -108,7 +112,7 @@ public class AccountController {
         if(result.hasErrors()){
             return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
         } else{
-            account.setId(id);
+            account.setId(id); //moet wegens de initbinder
             Account savedAccount = accountService.save(account);
             return "redirect:/accounts/" + savedAccount.getId();
         }

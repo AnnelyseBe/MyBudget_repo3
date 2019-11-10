@@ -31,7 +31,6 @@
         <th>Description</th>
         <th>Active</th>
         <th>Currency</th>
-        <th>View</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -45,8 +44,7 @@
         <td th:text="${account?.description}">Account Description</td>
         <td th:text="${account?.active}">Account Active</td>
         <td th:text="${account?.currency?.symbol}">Account currency</td>
-        <td><a href="#" th:href="@{'/accounts/' + ${account.id}+ '/show'}">View</a></td>
-        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/update'}">Update</a></td>
+        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/edit'}">Update</a></td>
         <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/delete'}">Delete</a></td>
 
 
