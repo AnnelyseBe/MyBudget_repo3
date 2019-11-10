@@ -54,6 +54,7 @@ class AccountControllerTest {
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(accountController)
+                .setControllerAdvice(new ControllerExceptionHandler())
                 .build();
     }
 
@@ -82,7 +83,7 @@ class AccountControllerTest {
 
     @Test
     void processFindFormReturnOne() throws Exception {
-        when(accountService.findAllByNameLike(anyString())).thenReturn(Arrays.asList(Account.builder().id(1l).build()));
+        when(accountService.findAllByNameLike(anyString())).thenReturn(Arrays.asList(Account.builder().id(1L).build()));
 
         mockMvc.perform(get("/accounts"))
                 .andExpect(status().is3xxRedirection())
