@@ -85,9 +85,10 @@ public class AccountController {
     }
 
     @PostMapping("/new")
-    public String processCreationForm(@Valid Account account, BindingResult result){
+    public String processCreationForm(@Valid Account account, BindingResult result, Model model){
         log.debug("AccountController newAccount() reached");
-
+        model.addAttribute("account", account);
+        model.addAttribute("currenciesToChoose", accountService.getCurrenciesToChoose());
 
         if (result.hasErrors()){
             return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
@@ -106,9 +107,10 @@ public class AccountController {
     }
 
     @PostMapping("/{id}/edit")
-    public String processUpdateAccountForm(@Valid Account account, BindingResult result, @PathVariable Long id){
+    public String processUpdateAccountForm(@Valid Account account, BindingResult result, @PathVariable Long id, Model model){
         log.debug("AccountController processUpdateAccountForm reached: id " + account.getId() );
-
+        model.addAttribute("account", account);
+        model.addAttribute("currenciesToChoose", accountService.getCurrenciesToChoose());
         if(result.hasErrors()){
             return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
         } else{

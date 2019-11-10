@@ -74,7 +74,9 @@ public class Transaction {
         this.costPost = costPost;
         this.validated = validated;
         this.recurring = recurring;
-        this.tags = tags;
+        if (tags != null){
+            this.tags = tags;
+        }
     }
 
     public Transaction setInflow(BigDecimal inflow) {

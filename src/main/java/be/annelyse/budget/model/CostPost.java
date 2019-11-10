@@ -47,7 +47,9 @@ public class CostPost {
         this.flow = flow;
         this.category = category;
         this.costPostActive = costPostActive;
-        this.transactions = transactions;
+        if (transactions != null){
+            this.transactions = transactions;
+        }
     }
 
     public CostPost setCategory(Category category) {
