@@ -2,6 +2,7 @@ package be.annelyse.budget.service.springdatajpa;
 
 import be.annelyse.budget.commands.converters.AccountCommandToAccount;
 import be.annelyse.budget.commands.converters.AccountToAccountCommand;
+import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.model.Transaction;
 import be.annelyse.budget.repositories.AccountRepository;
@@ -13,12 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -36,9 +39,9 @@ class AccountDataJpaServiceTest {
     @InjectMocks
     AccountDataJpaService accountService;
 
-    Account returnAccount;
-    final Long ACCOUNT_ID = 1L;
-    final String ACCOUNT_NAME = "zichtrekening";
+    private Account returnAccount;
+    private final Long ACCOUNT_ID = 1L;
+    private final String ACCOUNT_NAME = "zichtrekening";
 
     @BeforeEach
     void setUp() {
@@ -57,7 +60,7 @@ class AccountDataJpaServiceTest {
     }
 
     @Test
-    void findById() {
+    void findByIdHappyPath() {
         when(accountRepository.findById(anyLong())).thenReturn(Optional.of(returnAccount));
         Account myAccount = accountService.findById(1L);
         assertThat(myAccount, notNullValue());
@@ -66,8 +69,8 @@ class AccountDataJpaServiceTest {
     @Test
     void findByIdNotFound() {
         when(accountRepository.findById(anyLong())).thenReturn(Optional.empty());
-        Account myAccount = accountService.findById(1L);
-        assertThat(myAccount, nullValue());
+/*        Account myAccount = accountService.findById(1L);*/
+        assertThrows(NotFoundException.class, () -> accountService.findById(1L) );
     }
 
     @Test
@@ -130,4 +133,6 @@ class AccountDataJpaServiceTest {
 
         assertThat(balance, equalTo(BigDecimal.valueOf(-1800D)));
     }
+
+
 }

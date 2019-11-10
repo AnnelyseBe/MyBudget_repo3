@@ -1,14 +1,18 @@
 package be.annelyse.budget.controllers;
 
 import be.annelyse.budget.commands.AccountCommand;
+import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,6 +27,7 @@ public class AccountController {
     private static final String VIEWS_ACCOUNT_LIST = "accounts/accountsList";
     private static final String VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM = "accounts/createOrUpdateAccountForm";
     private static final String VIEWS_ACCOUNT_FIND = "accounts/findAccounts";
+    private static final String VIEW_404_ERROR = "errors/404Error";
 
     private final AccountService accountService;
 
@@ -129,5 +134,17 @@ public class AccountController {
             log.warn(re.getMessage());
         }
         return "redirect:/accounts";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public String handleNotFound(Exception exception, Model model){
+
+        log.debug("AccountController - handleNotFound has been reached");
+        log.error("Handling not found exception");
+        log.error(exception.getMessage());
+        model.addAttribute("exception", exception);
+
+        return VIEW_404_ERROR;
     }
 }

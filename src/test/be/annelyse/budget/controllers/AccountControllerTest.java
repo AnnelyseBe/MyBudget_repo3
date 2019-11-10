@@ -1,6 +1,7 @@
 package be.annelyse.budget.controllers;
 
 import be.annelyse.budget.commands.AccountCommand;
+import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +42,8 @@ class AccountControllerTest {
     @InjectMocks
     AccountController accountController;
 
-    List<Account> accounts;
-    MockMvc mockMvc;
+    private List<Account> accounts;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -64,8 +70,8 @@ class AccountControllerTest {
     void processFindFormReturnMany() throws Exception {
         when(accountService.findAllByNameLike(anyString()))
                 .thenReturn(Arrays.asList(
-                        Account.builder().id(1l).build(),
-                        Account.builder().id(2l).build()
+                        Account.builder().id(1L).build(),
+                        Account.builder().id(2L).build()
                 ));
 
         mockMvc.perform(get("/accounts"))
@@ -87,8 +93,8 @@ class AccountControllerTest {
     void processFindFormEmptyReturnMany() throws Exception {
         when(accountService.findAllByNameLike(anyString()))
                 .thenReturn(Arrays.asList(
-                        Account.builder().id(1l).build(),
-                        Account.builder().id(2l).build()
+                        Account.builder().id(1L).build(),
+                        Account.builder().id(2L).build()
                 ));
 
         mockMvc.perform(get("/accounts")
@@ -96,11 +102,11 @@ class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accounts/accountsList"))
                 .andExpect(model().attribute("accounts", hasSize(2)));
-        ;
+
     }
 
     @Test
-    void showById() throws Exception {
+    void showById_happyPath() throws Exception {
         Account account = new Account();
         account.setId(3L);
 
@@ -110,6 +116,17 @@ class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accounts/accountDetails"))
                 .andExpect(model().attribute("account", hasProperty("id", is(3L))));
+    }
+
+
+    @Test
+    void showById_notFound() throws Exception {
+
+        when(accountService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/accounts/3"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("errors/404Error"));
     }
 
     @Test
@@ -160,5 +177,7 @@ class AccountControllerTest {
 
         verify(accountService,times(1)).deleteById(anyLong());
     }
+
+
 
 }

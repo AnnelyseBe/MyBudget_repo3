@@ -8,7 +8,6 @@ import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.model.Transaction;
 import be.annelyse.budget.repositories.AccountRepository;
-import be.annelyse.budget.repositories.TransactionRepository;
 import be.annelyse.budget.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
@@ -43,7 +41,12 @@ public class AccountDataJpaService implements AccountService {
 
     @Override
     public Account findById(Long id) {
-        return accountRepository.findById(id).orElse(null);
+        Optional<Account> accountOptional = accountRepository.findById(id);
+
+        if (!accountOptional.isPresent()) {
+            throw new NotFoundException("Account with id: " + id + " not found !!!");
+        }
+        return accountOptional.get();
     }
 
     @Override
