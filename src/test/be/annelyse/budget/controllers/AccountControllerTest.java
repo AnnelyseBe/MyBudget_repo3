@@ -118,6 +118,12 @@ class AccountControllerTest {
                 .andExpect(model().attribute("account", hasProperty("id", is(3L))));
     }
 
+    @Test
+    void showById_NumberFormatException() throws Exception {
+        mockMvc.perform(get("/accounts/ddfd"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/400Error"));
+    }
 
     @Test
     void showById_notFound() throws Exception {

@@ -27,6 +27,7 @@ public class AccountController {
     private static final String VIEWS_ACCOUNT_LIST = "accounts/accountsList";
     private static final String VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM = "accounts/createOrUpdateAccountForm";
     private static final String VIEWS_ACCOUNT_FIND = "accounts/findAccounts";
+    private static final String VIEW_400_ERROR = "errors/400Error";
     private static final String VIEW_404_ERROR = "errors/404Error";
 
     private final AccountService accountService;
@@ -146,5 +147,19 @@ public class AccountController {
         model.addAttribute("exception", exception);
 
         return VIEW_404_ERROR;
+    }
+
+
+    // dit werkt nog niet
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public String handleBadRequest(Exception exception, Model model){
+
+        log.debug("AccountController - handleBadRequest Reached");
+        log.error("Bad Request");
+        log.error(exception.getMessage());
+        model.addAttribute("exception", exception);
+
+        return VIEW_400_ERROR;
     }
 }
