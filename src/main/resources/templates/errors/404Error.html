@@ -12,30 +12,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
-
     <meta charset="UTF-8">
-    <title>BudgetFile</title>
+    <title>404</title>
 </head>
-<body>
 
-<div>
-    <div th:replace="fragments/header :: header"></div>
-    <div>
-        <h1 th:text="'Index page'">Wees welkom op mijn eerste pagina</h1>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
-        <p>Message</p>
+<body>
+<!--/*@thymesVar id="exception" type="java.lang.RuntimeException"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>404 Not Found</h1>
+            <p th:text="${exception.getMessage()}"></p>
+            <p>hallo, Annelies hier. Je zocht iets dat niet bestaat</p>
+        </div>
     </div>
 </div>
-
-
-
 
 </body>
 </html>

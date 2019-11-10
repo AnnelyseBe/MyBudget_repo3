@@ -51,7 +51,10 @@ public class Account {
         this.description = description;
         this.active = active;
         this.currency = currency;
-        this.transactions = transactions;
+        if (transactions != null){
+            this.transactions = transactions;
+        }
+
     }
 
     public void addTransaction(Transaction transaction) {

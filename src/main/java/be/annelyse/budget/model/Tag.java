@@ -31,7 +31,9 @@ public class Tag{
 
         this.id = id;
         this.name = name;
-        this.transactions = transactions;
+        if (transactions != null){
+            this.transactions = transactions;
+        }
     }
 
     public void addTransaction(Transaction transaction) {

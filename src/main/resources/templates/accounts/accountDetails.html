@@ -12,17 +12,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
-
     <meta charset="UTF-8">
     <title>Accounts</title>
 </head>
 <body>
 <!--/*@thymesVar id="account" type="be.annelyse.budget.model.Account"*/-->
 
-<h2 th:text="'List of Accounts'">List of Accounts</h2>
+<h2 th:text="'Account by Id'">List of Accounts</h2>
 
-<!-- todo ... hier is zeer veel duplicate code in showId -->
-<!-- todo ... graag euroteken ipv "EUR" -->
+
 
 <table class="table table-striped">
     <thead>
@@ -33,14 +31,12 @@
         <th>Description</th>
         <th>Active</th>
         <th>Currency</th>
-        <th>View</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="account : ${accounts}">  <!-- thymeleaf iterator -->
 
         <td th:text="${account?.id}">Account ID</td>
         <td th:text="${account?.name}">Account Name</td>
@@ -48,11 +44,11 @@
         <td th:text="${account?.description}">Account Description</td>
         <td th:text="${account?.active}">Account Active</td>
         <td th:text="${account?.currency?.symbol}">Account currency</td>
-        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/show'}">View</a></td>
-        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/update'}">Update</a></td>
+        <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/edit'}">Update</a></td>
         <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/delete'}">Delete</a></td>
 
-    </tr>
+
+
     </tbody>
 </table>
 

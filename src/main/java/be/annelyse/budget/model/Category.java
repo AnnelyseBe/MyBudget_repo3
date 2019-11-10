@@ -33,7 +33,9 @@ public class Category{
         this.id = id;
         this.name = name;
         this.description = description;
-        this.costPosts = costPosts;
+        if (costPosts != null){
+            this.costPosts = costPosts;
+        }
     }
 
     public void addCostPost(CostPost costPost) {
