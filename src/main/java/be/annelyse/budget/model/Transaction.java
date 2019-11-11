@@ -3,6 +3,8 @@ package be.annelyse.budget.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class Transaction {
     private BigDecimal outflow;
 
     @Column(name = "description")
+    @Size(min = 3, max = 255)
+    @NotBlank
     private String description;
 
     @Column(name = "notes")

@@ -1,12 +1,16 @@
 package be.annelyse.budget.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.*;
 
 //let op ... als we iets veranderen aan het domein, moeten we ook de commands aanpassen
+// todo, ik denk dat het een betere praktijk is om de validators op de commands te zetten, misschien moeten we dit overnemen op de commands en hier weglaten
 
 @Getter
 @Setter
@@ -22,6 +26,8 @@ public class Account {
     private Long id;
 
     @Column(name = "name")
+    @Size(min = 3, max = 255)
+    @NotBlank
     private String name;
 
     @Column(name = "number")
@@ -39,9 +45,6 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<Transaction> transactions = new ArrayList<>();
-
-    //todo use transient of not @Transient or just dont use in the domainobject
-/*    private BigDecimal balance;*/
 
     @Builder
     public Account(Long id, String name, String number, String description, Boolean active, Currency currency, List<Transaction> transactions) {

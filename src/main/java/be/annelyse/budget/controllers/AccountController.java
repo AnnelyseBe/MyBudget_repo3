@@ -97,6 +97,8 @@ public class AccountController {
         model.addAttribute("currenciesToChoose", accountService.getCurrenciesToChoose());
 
         if (result.hasErrors()){
+            log.debug("Account has errors and cannot be saved");
+            result.getAllErrors().forEach(error -> log.debug(error.toString()));
             return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
         } else {
             Account savedAccount = accountService.save(account);

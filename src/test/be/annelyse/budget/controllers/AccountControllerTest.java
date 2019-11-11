@@ -1,6 +1,5 @@
 package be.annelyse.budget.controllers;
 
-import be.annelyse.budget.commands.AccountCommand;
 import be.annelyse.budget.exceptions.NotFoundException;
 import be.annelyse.budget.model.Account;
 import be.annelyse.budget.service.AccountService;
@@ -10,16 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -145,13 +138,28 @@ class AccountControllerTest {
     }
 
     @Test
-    void processCreationForm() throws Exception {
+    void processCreationForm_happyPath() throws Exception {
         when(accountService.save(ArgumentMatchers.any())).thenReturn(Account.builder().id(1L).build());
 
-        mockMvc.perform(post("/accounts/new"))
+        mockMvc.perform(post("/accounts/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name","msgdgi")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/accounts/1"))
                 .andExpect(model().attributeExists("account"));
+    }
+
+    @Test
+    void processCreationForm_NameValidationNOK() throws Exception {
+
+        mockMvc.perform(post("/accounts/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name","a"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("accounts/createOrUpdateAccountForm"))
+                .andExpect(model().attributeHasFieldErrors("account"))
+        ;
     }
 
     @Test
@@ -168,9 +176,11 @@ class AccountControllerTest {
 
     @Test
     void processUpdatedAccountForm() throws Exception {
-        when(accountService.save(ArgumentMatchers.any())).thenReturn(Account.builder().id(3L).build());
+        when(accountService.save(ArgumentMatchers.any())).thenReturn(Account.builder().id(3L).name("tehgfghst").build());
 
-        mockMvc.perform(post("/accounts/3/edit"))
+        mockMvc.perform(post("/accounts/3/edit")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name","min5letters"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/accounts/3"))
                 .andExpect(model().attributeExists("account"));

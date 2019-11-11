@@ -4,8 +4,11 @@ package be.annelyse.budget.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+//todo .. ik wil hier precies nog een description bij
 
 @Getter
 @Setter
@@ -21,6 +24,8 @@ public class Tag{
     private Long id;
 
     @Column(name = "name")
+    @Size(min = 3, max = 255)
+    @NotBlank
     private String name;
 
     @ManyToMany(mappedBy = "tags")
