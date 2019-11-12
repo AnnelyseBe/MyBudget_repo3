@@ -151,4 +151,13 @@ public class AccountController {
         return VIEW_404_ERROR;
     }
 
+
+    /*todo uitpluizen waarom hij deze altijd herhaalt in het antwoord -> hij neemt de transactions ook mee, die dan weer ook de accounts hebben ....
+    waarom kan hij niet gewoon de transactions laten voor wat ze zijn (vermits ze gemapped worden door de transactions*/
+    /*todo uitpluizen waarom dit een JsonEndpoint is en geen xml, waar staat dit ingesteld?*/
+    @GetMapping("/api/accounts")
+    public @ResponseBody List<Account> getAccountsJson(){
+        return accountService.findAll();
+    }
+
 }

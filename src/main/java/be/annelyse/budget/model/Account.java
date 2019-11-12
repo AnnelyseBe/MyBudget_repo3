@@ -1,13 +1,13 @@
 package be.annelyse.budget.model;
 
 import lombok.*;
-import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
 //let op ... als we iets veranderen aan het domein, moeten we ook de commands aanpassen
 // todo, ik denk dat het een betere praktijk is om de validators op de commands te zetten, misschien moeten we dit overnemen op de commands en hier weglaten

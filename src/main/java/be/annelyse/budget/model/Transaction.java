@@ -1,6 +1,7 @@
 package be.annelyse.budget.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,7 +30,9 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    //todo als we hier problemen mee krijgen, kijk eens in code petclinic bij visitcontroller databinder
     @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(name = "inflow")
