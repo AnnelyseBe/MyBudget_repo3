@@ -2,8 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2 # use CircleCI 2.0
-jobs: # basic units of work in a run
+version: 2
+jobs:
   build:
     docker:
       # specify the version you desire here
@@ -46,5 +46,3 @@ jobs: # basic units of work in a run
       - run:
           name: Send to CodeCov
           command: bash <(curl -s https://codecov.io/bash)
-          environment:
-            CODECOV_TOKEN: e23c7c6a-43d8-43bb-ab5f-691b76c7103b
