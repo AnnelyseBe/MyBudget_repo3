@@ -1,4 +1,11 @@
-[![CircleCI](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3.svg?style=svg)](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3)
+# Develop
+
+[![CircleCI](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3/tree/develop.svg?style=svg&circle-token=fc0e7ef03daa1a2fd8f57550fce49b7f1ccdd8d3)](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3/tree/develop)
+
+# Master
+[![CircleCI](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3/tree/master.svg?style=svg&circle-token=fc0e7ef03daa1a2fd8f57550fce49b7f1ccdd8d3)](https://circleci.com/gh/AnnelyseBe/MyBudget_repo3/tree/master)
+
+
 
 # MyBudget_repo3
 BudgetFile
