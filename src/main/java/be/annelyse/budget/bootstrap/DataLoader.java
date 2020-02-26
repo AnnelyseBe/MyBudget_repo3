@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
+
+/*
+Initial fill of the database, kan ook via data.sql in de resources,
+of bij de springboot cursus in spring5-mysql-recipe app gebeurt dit met een klasse die is afgeleid van implements ApplicationListener<ContextRefreshedEvent>
+*/
+
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
 @Component
 public class DataLoader implements CommandLineRunner {

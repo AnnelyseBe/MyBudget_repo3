@@ -71,6 +71,8 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- zodat je (oa) geen getters & setters en andere boiler code moet gebruiken-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -78,18 +80,20 @@
         </dependency>
 
 
-        <!-- gevonden op webjars.org-->
+        <!-- gevonden op webjars.org, brengt ook de dependency jquery mee-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.7-1</version>
         </dependency>
 
+        <!-- junit -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- beheer van versie in spring-boot-starter-parent -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
