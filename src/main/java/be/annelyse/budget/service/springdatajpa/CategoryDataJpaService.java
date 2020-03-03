@@ -14,7 +14,6 @@ import java.util.Set;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
-@Profile("springdatajpa")
 public class CategoryDataJpaService implements CategoryService {
 
     private final CategoryRepository categoryRepository;

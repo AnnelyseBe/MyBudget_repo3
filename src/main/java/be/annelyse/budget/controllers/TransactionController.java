@@ -4,6 +4,7 @@ package be.annelyse.budget.controllers;
 import be.annelyse.budget.service.AccountService;
 import be.annelyse.budget.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
 
+    @Autowired
     public TransactionController(TransactionService transactionService){
         this.transactionService = transactionService;
 

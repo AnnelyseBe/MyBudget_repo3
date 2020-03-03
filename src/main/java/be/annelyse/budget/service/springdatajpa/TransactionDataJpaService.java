@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
-@Profile("springdatajpa")
 public class TransactionDataJpaService implements TransactionService {
 
     private final TransactionRepository transactionRepository;

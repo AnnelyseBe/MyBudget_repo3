@@ -1,6 +1,6 @@
 /*
-deze kan worden gebruikt om initial data in de databank te krijgen. Initialisation van de database
-dit kan ook via bootstrap (in de code Dataloader.java)
+deze kan worden gebruikt om initial data in de databank te krijgen voor het h2 platform. Initialisation van de database
+dit kan ook via bootstrap (in de code BudgetBootstrap.java)
 
 
 INSERT INTO category (description) VALUES ('American');

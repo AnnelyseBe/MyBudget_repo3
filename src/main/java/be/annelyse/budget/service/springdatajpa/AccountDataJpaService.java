@@ -19,7 +19,6 @@ import java.util.*;
 
 @Service
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
-@Profile("springdatajpa")
 public class AccountDataJpaService implements AccountService {
 
     private final AccountRepository accountRepository;
@@ -43,7 +42,7 @@ public class AccountDataJpaService implements AccountService {
     public Account findById(Long id) {
         Optional<Account> accountOptional = accountRepository.findById(id);
 
-        if (!accountOptional.isPresent()) {
+        if (accountOptional.isEmpty()) {
             throw new NotFoundException("Account with id: " + id + " not found !!!");
         }
         return accountOptional.get();
@@ -113,9 +112,9 @@ public class AccountDataJpaService implements AccountService {
 
         BigDecimal balance = new BigDecimal("0");
 
-        for (int i = 0; i < transactionsByAccountId.size(); i++) {
-            if (transactionsByAccountId.get(i).getValidated()) {
-                balance = balance.subtract(transactionsByAccountId.get(i).getOutflow()).add(transactionsByAccountId.get(i).getInflow());
+        for (Transaction transaction : transactionsByAccountId) {
+            if (transaction.getValidated()) {
+                balance = balance.subtract(transaction.getOutflow()).add(transaction.getInflow());
             }
         }
         return balance;
