@@ -16,31 +16,30 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(exclude = {"transactions"})
 @Entity //JPA-hibernate geeft aan dat dit een model is
-@Table(name = "account")  //waarom lukt het niet om naam tabel te definieren
+//@Table(name = "account")  //waarom lukt het niet om naam tabel te definieren
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+//    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     @Size(min = 3, max = 255)
     @NotBlank
     private String name;
 
-    @Column(name = "number")
+//    @Column(name = "number")
     private String number;
 
     @Lob  //todo ... is Lob hier de goede annotatie voor?
-    @Column(name = "description")
+//    @Column(name = "description")
     private String description;
 
-    @Builder.Default
-    @Column(name = "active")
+//    @Column(name = "active")
     private Boolean active = true;
 
-    @Column(name = "currency")
+//    @Column(name = "currency")
     private Currency currency = Currency.getInstance("EUR");
 
     @OneToMany(mappedBy = "account")

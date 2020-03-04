@@ -13,20 +13,20 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"costPosts"})
 @Entity
-@Table(name = "category")
+//@Table(name = "category")
 public class Category{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    //@Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     @Size(min = 3, max = 255)
     @NotBlank
     private String name;
 
-    @Column(name = "description")
+//    @Column(name = "description")
     private String description;
 
     @OneToMany(mappedBy = "category")

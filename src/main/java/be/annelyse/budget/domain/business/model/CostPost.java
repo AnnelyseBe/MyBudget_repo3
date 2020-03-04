@@ -13,31 +13,31 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"transactions"})
 @Entity
-@Table(name = "costpost")
+//@Table(name = "costpost")
 public class CostPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+//    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     @Size(min = 3, max = 255)
     @NotBlank
     private String name;
 
-    @Column(name = "description")
+//    @Column(name = "description")
     private String description;
 
-    @Column(name = "flowtype")
+//    @Column(name = "flowtype")
     @Enumerated(EnumType.STRING)
     private FlowType flow;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+//    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name = "active")
+//    @Column(name = "active")
     private Boolean costPostActive = true;
 
     @OneToMany(mappedBy = "costPost")

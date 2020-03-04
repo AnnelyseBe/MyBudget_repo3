@@ -16,54 +16,54 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "transaction")
+//@Table(name = "transaction")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+//    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+//    @JoinColumn(name = "account_id")
     private Account account;
 
     //todo als we hier problemen mee krijgen, kijk eens in code petclinic bij visitcontroller databinder
-    @Column(name = "date")
+//    @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @Column(name = "inflow")
+//    @Column(name = "inflow")
     private BigDecimal inflow;
 
-    @Column(name = "outflow")
+//    @Column(name = "outflow")
     private BigDecimal outflow;
 
-    @Column(name = "description")
+//    @Column(name = "description")
     @Size(min = 3, max = 255)
     @NotBlank
     private String description;
 
-    @Column(name = "notes")
+//    @Column(name = "notes")
     private String notes;
 
-    @Column(name = "extra")
+//    @Column(name = "extra")
     private String extra;
 
     @ManyToOne
-    @JoinColumn(name = "costpost_id")
+//    @JoinColumn(name = "costpost_id")
     private CostPost costPost;
 
-    @Column(name = "validated")
+//    @Column(name = "validated")
     private Boolean validated = false;
 
     @Enumerated(EnumType.STRING)
     private Recurring recurring = Recurring.NONE;
 
     @ManyToMany
-    @JoinTable(name = "transaction_tags",
-            joinColumns = @JoinColumn(name = "transaction_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+//    @JoinTable(name = "transaction_tags",
+//            joinColumns = @JoinColumn(name = "transaction_id"),
+//            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
