@@ -1,7 +1,8 @@
 package be.annelyse.budget.bootstrap;
 
-import be.annelyse.budget.model.*;
-import be.annelyse.budget.service.*;
+import be.annelyse.budget.domain.business.model.Account;
+import be.annelyse.budget.domain.business.model.Category;
+import be.annelyse.budget.domain.business.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
@@ -9,15 +10,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Currency;
-import java.util.List;
 
 /*
 Initial fill of the database, kan ook via data.sql in de resources,
-of via DataLoader implements CommandLineRunner met een run-methode
+of via DataLoader implements CommandLineRunner met een run-methode -> deze is springbootspecific (werkt dus enkel met springboot)
 */
 
 /*

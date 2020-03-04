@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @SpringBootApplication
-// @Configuration (beans definiëren)
-// @ComponentScan (zoekt beans in pakket en subpakketten waar deze file in zit)
-// @EnableAutoConfiguration geldt voor het pakket en subpakketten waar deze file in zit
 public class BudgetApplication {
 
     public static void main(String[] args) {

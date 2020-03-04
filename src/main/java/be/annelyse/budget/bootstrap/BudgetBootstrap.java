@@ -1,7 +1,7 @@
 package be.annelyse.budget.bootstrap;
 
-import be.annelyse.budget.model.*;
-import be.annelyse.budget.service.*;
+import be.annelyse.budget.domain.business.model.*;
+import be.annelyse.budget.domain.business.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;

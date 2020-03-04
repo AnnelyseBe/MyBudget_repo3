@@ -1,8 +1,10 @@
 package be.annelyse.budget.controllers;
 
-import be.annelyse.budget.exceptions.NotFoundException;
-import be.annelyse.budget.model.Account;
-import be.annelyse.budget.service.AccountService;
+import be.annelyse.budget.domain.business.exceptions.NotFoundException;
+import be.annelyse.budget.domain.business.model.Account;
+import be.annelyse.budget.domain.business.service.AccountService;
+import be.annelyse.budget.web.thymeleaf.controllers.AccountController;
+import be.annelyse.budget.web.thymeleaf.controllers.ControllerExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
