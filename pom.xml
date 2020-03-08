@@ -93,21 +93,21 @@
             <version>${springfox-swagger.version}</version>
         </dependency>
 
-<!--
+        <!--
 
-        &lt;!&ndash;        Swagger 3.0&ndash;&gt;
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-core</artifactId>
-            <version>${swagger3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${swagger3.version}</version>
-        </dependency>
+                &lt;!&ndash;        Swagger 3.0&ndash;&gt;
+                <dependency>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-core</artifactId>
+                    <version>${swagger3.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-ui</artifactId>
+                    <version>${swagger3.version}</version>
+                </dependency>
 
--->
+        -->
 
         <!-- zodat je (oa) geen getters & setters en andere boiler code moet gebruiken-->
         <dependency>
