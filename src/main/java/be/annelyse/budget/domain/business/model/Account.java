@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(exclude = {"transactions"})
 @Entity //JPA-hibernate geeft aan dat dit een model is
-//@Table(name = "account")  //waarom lukt het niet om naam tabel te definieren
+// @Table(name = "account")  //waarom lukt het niet om naam tabel te definieren
 public class Account {
 
     @Id

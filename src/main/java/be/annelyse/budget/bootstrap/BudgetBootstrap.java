@@ -22,7 +22,7 @@ of via DataLoader implements CommandLineRunner met een run-methode
 
 @Slf4j //lombok logging to use just by eg. log.debug("I'm in service")
 @Component
-@Profile("default")
+@Profile("local")
 public class BudgetBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final AccountService accountService;
@@ -45,7 +45,7 @@ public class BudgetBootstrap implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        log.debug("bootstrap default (H2) has started");
+        log.debug("bootstrap (local - H2) has started");
 
         int count = accountService.findAll().size();
         if (count == 0) {

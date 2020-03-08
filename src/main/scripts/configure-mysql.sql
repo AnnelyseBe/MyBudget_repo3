@@ -17,6 +17,12 @@ CREATE USER 'mybudget_prod_user'@'%' IDENTIFIED BY 'Prod123456!?';
 /*Database grants*/
 /*minimal acces -> DML*/
 /*any host --> % , want docker container denkt dat we van een ander ip-adres komen*/
+
+GRANT ALL PRIVILEGES ON mybudget_dev.* TO 'mybudget_dev_user'@'localhost';
+GRANT ALL PRIVILEGES ON mybudget_dev.* TO 'mybudget_dev_user'@'%';
+GRANT ALL PRIVILEGES ON mybudget_prod.* TO 'mybudget_prod_user'@'localhost';
+GRANT ALL PRIVILEGES ON mybudget_prod.* TO 'mybudget_prod_user'@'%';
+
 GRANT SELECT ON mybudget_dev.* to 'mybudget_dev_user'@'localhost';
 GRANT INSERT ON mybudget_dev.* to 'mybudget_dev_user'@'localhost';
 GRANT DELETE ON mybudget_dev.* to 'mybudget_dev_user'@'localhost';
