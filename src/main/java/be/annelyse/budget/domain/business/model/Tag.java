@@ -15,15 +15,15 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"transactions"})
 @Entity
-//@Table(name = "tag")
+@Table(name = "tag")
 public class Tag{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "id")
+    @Column(name = "id")
     private Long id;
 
-//    @Column(name = "name")
+    @Column(name = "name")
     @Size(min = 3, max = 255)
     @NotBlank
     private String name;

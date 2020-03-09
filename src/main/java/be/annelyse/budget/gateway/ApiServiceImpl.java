@@ -10,7 +10,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ApiServiceImpl implements ApiService {
 
     private RestTemplate restTemplate;
-
     private final String api_url;
 
 /*spring expression language -> property uit application.properties gebruiken en injecteren at runtime*/
@@ -28,7 +27,6 @@ public class ApiServiceImpl implements ApiService {
                 .fromUriString(api_url)
                 .queryParam("limit", limit);
 
-        CategoryDto category = restTemplate.getForObject(uriBuilder.toUriString(), CategoryDto.class);
-        return category;
+        return restTemplate.getForObject(uriBuilder.toUriString(), CategoryDto.class);
     }
 }

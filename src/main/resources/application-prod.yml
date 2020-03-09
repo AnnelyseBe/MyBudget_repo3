@@ -1,18 +1,16 @@
-@opnieuw op te zetten als copy van dev
-
-
-#sql database
+########################################################################################################################
+####                                              DATABASE - Datasource                                             ####
+########################################################################################################################
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/mybudget_prod
-    username: mybudget_prod_user
-    password: Prod123456!?
-    platform: mysql
+    url: jdbc:mysql://localhost:3307/mybudget_prod #docker container
+    username: root
+    password:  #beter om in te brengen als environment variabele, of met encryption
+
+########################################################################################################################
+####                                           DATABASE - Jpa / Hibernate                                           ####
+########################################################################################################################
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    database: mysql
-#    onze productie moeten we niet vervuilen met sql statements
-    show-sql: false
+    show-sql: false  # Sonze productie moeten we niet vervuilen met sql statements
+
