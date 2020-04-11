@@ -16,11 +16,31 @@ BudgetFile
 * ....
 
 # Techradar
+* Java 11
 * Spring Boot
+* Spring data
+* Spring mvc
+* Maven
+* Maven release
 * Mockito
+* junit5
+* assertJ
 * Spring data
 * hibernate
 * circleCI
+* Lombok
+* Docker
+* mySql
+* Thymeleaf
+* Swagger 2.0 -> to transfer to open API 3.0
+* H2 embedded database for testing
+* logging ??? (slf4j??)
+
+future
+* AWS
+*
+
+# Documentation 
 
 
 
