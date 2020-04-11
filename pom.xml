@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <!--    Deze parent bevat ook de version nummers van de andere dependecies die meekomen (bv. mysql driver)-->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -9,9 +10,11 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>be.annelyse</groupId>
     <artifactId>budget</artifactId>
     <version>0.0.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>budget</name>
     <description>3th attempt to make a budgetfile. Spring boot, hibernate, spring data, thymeleaf included</description>
 
