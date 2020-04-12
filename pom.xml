@@ -252,7 +252,6 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:AnnelyseBe/MyBudget_repo3.git</developerConnection>
-      <tag>budget-0.0.4</tag>
   </scm>
 
 </project>
