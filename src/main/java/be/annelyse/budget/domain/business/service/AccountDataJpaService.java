@@ -31,6 +31,7 @@ public class AccountDataJpaService implements AccountService {
 
     @Override
     public List<Account> findAll() {
+        //todo delete maar , dit is voor mobbing test
         List<Account> accounts = new ArrayList<>();
         accountRepository.findAll().forEach(accounts::add);
         return accounts;
