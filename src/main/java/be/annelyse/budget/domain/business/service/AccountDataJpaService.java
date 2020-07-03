@@ -1,13 +1,13 @@
 package be.annelyse.budget.domain.business.service;
 
-import be.annelyse.budget.web.dto.AccountDto;
-import be.annelyse.budget.web.mappers.AccountDtoToAccount;
-import be.annelyse.budget.web.mappers.AccountToAccountDto;
 import be.annelyse.budget.domain.business.exceptions.ActionNotAllowedException;
 import be.annelyse.budget.domain.business.exceptions.NotFoundException;
 import be.annelyse.budget.domain.business.model.Account;
 import be.annelyse.budget.domain.business.model.Transaction;
 import be.annelyse.budget.domain.dao.AccountRepository;
+import be.annelyse.budget.web.dto.AccountDto;
+import be.annelyse.budget.web.mappers.AccountDtoToAccount;
+import be.annelyse.budget.web.mappers.AccountToAccountDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,19 +61,19 @@ public class AccountDataJpaService implements AccountService {
     public Account patch(Long id, Account account) {
         return accountRepository.findById(id).map(accountToPatch -> {
 
-            if(account.getName() != null){
+            if (account.getName() != null) {
                 accountToPatch.setName(account.getName());
             }
-            if(account.getCurrency() != null){
+            if (account.getCurrency() != null) {
                 accountToPatch.setCurrency(account.getCurrency());
             }
-            if(account.getDescription() != null){
+            if (account.getDescription() != null) {
                 accountToPatch.setDescription(account.getDescription());
             }
-            if(account.getNumber() != null){
+            if (account.getNumber() != null) {
                 accountToPatch.setNumber(account.getNumber());
             }
-            if(account.getActive() != null){
+            if (account.getActive() != null) {
                 accountToPatch.setActive(account.getActive());
             }
             return accountRepository.save(accountToPatch);
@@ -81,20 +81,18 @@ public class AccountDataJpaService implements AccountService {
     }
 
     @Override
-    public Account inactivateAccount(Account account){
+    public Account inactivateAccount(Account account) {
         account.setActive(false);
         return save(account);
     }
 
     @Override
     public void delete(Account accountToDelete) {
-        if (accountToDelete == null){
+        if (accountToDelete == null) {
             throw new NotFoundException("the account to be deleted does not exist");
-        }
-        else if (accountToDelete.getTransactions() == null || accountToDelete.getTransactions().isEmpty()){
+        } else if (accountToDelete.getTransactions() == null || accountToDelete.getTransactions().isEmpty()) {
             accountRepository.delete(accountToDelete);
-        }
-        else {
+        } else {
             inactivateAccount(accountToDelete);
             throw new ActionNotAllowedException("an account with transaction coupled to it can not be deleted. It has been invalidated instead");
         }
@@ -113,13 +111,16 @@ public class AccountDataJpaService implements AccountService {
 
     @Override
     public List<Account> findAllByNameLike(String name) {
-        return accountRepository.findAllByNameLike("%"+name+"%");
+        return accountRepository.findAllByNameLike("%" + name + "%");
     }
 
     @Override
     @Transactional
     public AccountDto findCommandById(Long id) {
+
+
         return accountToAccountDto.convert(findById(id));
+
     }
 
     @Override
@@ -134,14 +135,19 @@ public class AccountDataJpaService implements AccountService {
 
     @Override
     public BigDecimal calculateBalanceOfId(Long accountId) {
-        Account myAccount = findById(accountId);
-        List<Transaction> transactionsByAccountId = myAccount.getTransactions();
+        Account myAccount = findById(accountId);List<Transaction> transactionsByAccountId = myAccount.getTransactions();
 
         BigDecimal balance = new BigDecimal("0");
 
         for (Transaction transaction : transactionsByAccountId) {
+
             if (transaction.getValidated()) {
+
                 balance = balance.subtract(transaction.getOutflow()).add(transaction.getInflow());
+
+
+
+
             }
         }
         return balance;
@@ -150,7 +156,16 @@ public class AccountDataJpaService implements AccountService {
     @Override
     public Set<Currency> getCurrenciesToChoose() {
         Set<Currency> currenciesToChoose = new HashSet<>();
-        currenciesToChoose.add(Currency.getInstance("EUR"));
+
+        currenciesToChoose.add
+
+
+
+
+
+                (Currency.getInstance("EUR"));
+
+
         currenciesToChoose.add(Currency.getInstance("USD"));
         return currenciesToChoose;
     }

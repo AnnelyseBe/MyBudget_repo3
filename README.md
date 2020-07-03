@@ -13,6 +13,8 @@ BudgetFile
 # Requirements to program
 * IntelliJ Lombok plugin
 * Java11 SDK
+* Maven 3.6
+* Docker
 * ....
 
 # Techradar
@@ -21,7 +23,7 @@ BudgetFile
 * Spring data
 * Spring mvc
 * Maven
-* Maven release
+* Maven release plugin
 * Mockito
 * junit5
 * assertJ
@@ -41,6 +43,15 @@ future
 *
 
 # Documentation 
+
+## Run locally
+start docker container 
+ * via kitematic 
+ * docker start mybudget_mysqldb
+
+## New release
+mvn release:prepare
+mvn release:perform
 
 
 
